@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.contentunion.mapper.IntelligentDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.contentunion.entity.IntelligentDevice">
+    <!--@mbg.generated-->
+    <id column="intelligent_device_id" jdbcType="INTEGER" property="intelligentDeviceId" />
+    <result column="mac_ip" jdbcType="VARCHAR" property="macIp" />
+    <result column="gw_mac" jdbcType="VARCHAR" property="gwMac" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="kk_type" jdbcType="VARCHAR" property="kkType" />
+    <result column="device_address" jdbcType="VARCHAR" property="deviceAddress" />
+    <result column="central_host_id" jdbcType="INTEGER" property="centralHostId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_infrared" jdbcType="INTEGER" property="isInfrared" />
+    <result column="valid" jdbcType="TINYINT" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    intelligent_device_id, mac_ip, gw_mac, product_id, product_name, kk_type, device_address, 
+    central_host_id, create_time, update_time, is_infrared, `valid`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from intelligent_device
+    where intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from intelligent_device
+    where intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="intelligent_device_id" keyProperty="intelligentDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentDevice" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_device (mac_ip, gw_mac, product_id, 
+      product_name, kk_type, device_address, 
+      central_host_id, create_time, update_time, 
+      is_infrared, `valid`)
+    values (#{macIp,jdbcType=VARCHAR}, #{gwMac,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{kkType,jdbcType=VARCHAR}, #{deviceAddress,jdbcType=VARCHAR}, 
+      #{centralHostId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{isInfrared,jdbcType=INTEGER}, #{valid,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="intelligent_device_id" keyProperty="intelligentDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentDevice" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="macIp != null and macIp != ''">
+        mac_ip,
+      </if>
+      <if test="gwMac != null and gwMac != ''">
+        gw_mac,
+      </if>
+      <if test="productId != null and productId != ''">
+        product_id,
+      </if>
+      <if test="productName != null and productName != ''">
+        product_name,
+      </if>
+      <if test="kkType != null and kkType != ''">
+        kk_type,
+      </if>
+      <if test="deviceAddress != null and deviceAddress != ''">
+        device_address,
+      </if>
+      <if test="centralHostId != null">
+        central_host_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isInfrared != null">
+        is_infrared,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="macIp != null and macIp != ''">
+        #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null and gwMac != ''">
+        #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null and productId != ''">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null and productName != ''">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="kkType != null and kkType != ''">
+        #{kkType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null and deviceAddress != ''">
+        #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="centralHostId != null">
+        #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isInfrared != null">
+        #{isInfrared,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.contentunion.entity.IntelligentDevice">
+    <!--@mbg.generated-->
+    update intelligent_device
+    <set>
+      <if test="macIp != null and macIp != ''">
+        mac_ip = #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null and gwMac != ''">
+        gw_mac = #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null and productId != ''">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null and productName != ''">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="kkType != null and kkType != ''">
+        kk_type = #{kkType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null and deviceAddress != ''">
+        device_address = #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="centralHostId != null">
+        central_host_id = #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isInfrared != null">
+        is_infrared = #{isInfrared,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        `valid` = #{valid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.contentunion.entity.IntelligentDevice">
+    <!--@mbg.generated-->
+    update intelligent_device
+    set mac_ip = #{macIp,jdbcType=VARCHAR},
+      gw_mac = #{gwMac,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      kk_type = #{kkType,jdbcType=VARCHAR},
+      device_address = #{deviceAddress,jdbcType=VARCHAR},
+      central_host_id = #{centralHostId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_infrared = #{isInfrared,jdbcType=INTEGER},
+      `valid` = #{valid,jdbcType=TINYINT}
+    where intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update intelligent_device
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="mac_ip = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.macIp,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="gw_mac = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.gwMac,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="product_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.productId,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="product_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.productName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="kk_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.kkType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="device_address = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.deviceAddress,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="central_host_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.centralHostId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="is_infrared = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.isInfrared,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`valid` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_device_id = #{item.intelligentDeviceId,jdbcType=INTEGER} then #{item.valid,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+    </trim>
+    where intelligent_device_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.intelligentDeviceId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="intelligent_device_id" keyProperty="intelligentDeviceId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_device
+    (mac_ip, gw_mac, product_id, product_name, kk_type, device_address, central_host_id, 
+      create_time, update_time, is_infrared, `valid`)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.macIp,jdbcType=VARCHAR}, #{item.gwMac,jdbcType=VARCHAR}, #{item.productId,jdbcType=VARCHAR}, 
+        #{item.productName,jdbcType=VARCHAR}, #{item.kkType,jdbcType=VARCHAR}, #{item.deviceAddress,jdbcType=VARCHAR}, 
+        #{item.centralHostId,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.isInfrared,jdbcType=INTEGER}, #{item.valid,jdbcType=TINYINT}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="intelligent_device_id" keyProperty="intelligentDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentDevice" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id,
+      </if>
+      mac_ip,
+      gw_mac,
+      product_id,
+      product_name,
+      kk_type,
+      device_address,
+      central_host_id,
+      create_time,
+      update_time,
+      is_infrared,
+      `valid`,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      #{macIp,jdbcType=VARCHAR},
+      #{gwMac,jdbcType=VARCHAR},
+      #{productId,jdbcType=VARCHAR},
+      #{productName,jdbcType=VARCHAR},
+      #{kkType,jdbcType=VARCHAR},
+      #{deviceAddress,jdbcType=VARCHAR},
+      #{centralHostId,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+      #{isInfrared,jdbcType=INTEGER},
+      #{valid,jdbcType=TINYINT},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      mac_ip = #{macIp,jdbcType=VARCHAR},
+      gw_mac = #{gwMac,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      kk_type = #{kkType,jdbcType=VARCHAR},
+      device_address = #{deviceAddress,jdbcType=VARCHAR},
+      central_host_id = #{centralHostId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_infrared = #{isInfrared,jdbcType=INTEGER},
+      `valid` = #{valid,jdbcType=TINYINT},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="intelligent_device_id" keyProperty="intelligentDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentDevice" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id,
+      </if>
+      <if test="macIp != null">
+        mac_ip,
+      </if>
+      <if test="gwMac != null">
+        gw_mac,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="kkType != null">
+        kk_type,
+      </if>
+      <if test="deviceAddress != null">
+        device_address,
+      </if>
+      <if test="centralHostId != null">
+        central_host_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isInfrared != null">
+        is_infrared,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="macIp != null">
+        #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null">
+        #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="kkType != null">
+        #{kkType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null">
+        #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="centralHostId != null">
+        #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isInfrared != null">
+        #{isInfrared,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="macIp != null">
+        mac_ip = #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null">
+        gw_mac = #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="kkType != null">
+        kk_type = #{kkType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null">
+        device_address = #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="centralHostId != null">
+        central_host_id = #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isInfrared != null">
+        is_infrared = #{isInfrared,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        `valid` = #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertSelectiveWithPrimaryKey" keyColumn="intelligent_device_id" keyProperty="intelligentDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentDevice" useGeneratedKeys="true">
+
+    <selectKey keyProperty="intelligentDeviceId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    -->
+    insert into intelligent_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="macIp != null">
+        mac_ip,
+      </if>
+      <if test="gwMac != null">
+        gw_mac,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="kkDeviceId != null">
+        kk_device_id,
+      </if>
+      <if test="kkType != null">
+        kk_type,
+      </if>
+      <if test="deviceAddress != null">
+        device_address,
+      </if>
+      <if test="centralHostId != null">
+        central_host_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isInfrared != null">
+        is_infrared,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="macIp != null">
+        #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null">
+        #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="kkDeviceId != null">
+        #{kkDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="kkType != null">
+        #{kkType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null">
+        #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="centralHostId != null">
+        #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isInfrared != null">
+        #{isInfrared,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-28-->
+	<select id="findInvalidOneByMacIp" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from intelligent_device
+    where mac_ip=#{macIp,jdbcType=VARCHAR} and valid=0
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-29-->
+	<select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from intelligent_device where valid=1
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-06-05-->
+	<select id="findByCentralHostId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from intelligent_device
+        where central_host_id=#{centralHostId,jdbcType=INTEGER} and valid=1
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-06-11-->
+	<update id="updateGwMacAndKkTypeByMacIp">
+    update intelligent_device
+    set gw_mac=#{updatedGwMac,jdbcType=VARCHAR}, kk_type=#{updatedKkType,jdbcType=VARCHAR}
+    where mac_ip=#{macIp,jdbcType=VARCHAR} and valid=1
+  </update>
+</mapper>

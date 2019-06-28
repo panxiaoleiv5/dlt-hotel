@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.contentunion.mapper.GatewayMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.contentunion.entity.Gateway">
+    <!--@mbg.generated-->
+    <id column="gateway_id" jdbcType="INTEGER" property="gatewayId" />
+    <result column="central_host_id" jdbcType="INTEGER" property="centralHostId" />
+    <result column="gw_id" jdbcType="INTEGER" property="gwId" />
+    <result column="gw_name" jdbcType="VARCHAR" property="gwName" />
+    <result column="gw_mac" jdbcType="VARCHAR" property="gwMac" />
+    <result column="gw_ip" jdbcType="VARCHAR" property="gwIp" />
+    <result column="gw_type" jdbcType="INTEGER" property="gwType" />
+    <result column="gw_cur_version" jdbcType="VARCHAR" property="gwCurVersion" />
+    <result column="gw_download_version" jdbcType="VARCHAR" property="gwDownloadVersion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    gateway_id, central_host_id, gw_id, gw_name, gw_mac, gw_ip, gw_type, gw_cur_version, 
+    gw_download_version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from gateway
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from gateway
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="gateway_id" keyProperty="gatewayId" parameterType="com.handinglian.contentunion.entity.Gateway" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into gateway (central_host_id, gw_id, gw_name, 
+      gw_mac, gw_ip, gw_type, 
+      gw_cur_version, gw_download_version)
+    values (#{centralHostId,jdbcType=INTEGER}, #{gwId,jdbcType=INTEGER}, #{gwName,jdbcType=VARCHAR}, 
+      #{gwMac,jdbcType=VARCHAR}, #{gwIp,jdbcType=VARCHAR}, #{gwType,jdbcType=INTEGER}, 
+      #{gwCurVersion,jdbcType=VARCHAR}, #{gwDownloadVersion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="gateway_id" keyProperty="gatewayId" parameterType="com.handinglian.contentunion.entity.Gateway" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into gateway
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="centralHostId != null">
+        central_host_id,
+      </if>
+      <if test="gwId != null">
+        gw_id,
+      </if>
+      <if test="gwName != null and gwName != ''">
+        gw_name,
+      </if>
+      <if test="gwMac != null and gwMac != ''">
+        gw_mac,
+      </if>
+      <if test="gwIp != null and gwIp != ''">
+        gw_ip,
+      </if>
+      <if test="gwType != null">
+        gw_type,
+      </if>
+      <if test="gwCurVersion != null and gwCurVersion != ''">
+        gw_cur_version,
+      </if>
+      <if test="gwDownloadVersion != null and gwDownloadVersion != ''">
+        gw_download_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="centralHostId != null">
+        #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="gwId != null">
+        #{gwId,jdbcType=INTEGER},
+      </if>
+      <if test="gwName != null and gwName != ''">
+        #{gwName,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null and gwMac != ''">
+        #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="gwIp != null and gwIp != ''">
+        #{gwIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwType != null">
+        #{gwType,jdbcType=INTEGER},
+      </if>
+      <if test="gwCurVersion != null and gwCurVersion != ''">
+        #{gwCurVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gwDownloadVersion != null and gwDownloadVersion != ''">
+        #{gwDownloadVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.contentunion.entity.Gateway">
+    <!--@mbg.generated-->
+    update gateway
+    <set>
+      <if test="centralHostId != null">
+        central_host_id = #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="gwId != null">
+        gw_id = #{gwId,jdbcType=INTEGER},
+      </if>
+      <if test="gwName != null and gwName != ''">
+        gw_name = #{gwName,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null and gwMac != ''">
+        gw_mac = #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="gwIp != null and gwIp != ''">
+        gw_ip = #{gwIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwType != null">
+        gw_type = #{gwType,jdbcType=INTEGER},
+      </if>
+      <if test="gwCurVersion != null and gwCurVersion != ''">
+        gw_cur_version = #{gwCurVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gwDownloadVersion != null and gwDownloadVersion != ''">
+        gw_download_version = #{gwDownloadVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.contentunion.entity.Gateway">
+    <!--@mbg.generated-->
+    update gateway
+    set central_host_id = #{centralHostId,jdbcType=INTEGER},
+      gw_id = #{gwId,jdbcType=INTEGER},
+      gw_name = #{gwName,jdbcType=VARCHAR},
+      gw_mac = #{gwMac,jdbcType=VARCHAR},
+      gw_ip = #{gwIp,jdbcType=VARCHAR},
+      gw_type = #{gwType,jdbcType=INTEGER},
+      gw_cur_version = #{gwCurVersion,jdbcType=VARCHAR},
+      gw_download_version = #{gwDownloadVersion,jdbcType=VARCHAR}
+    where gateway_id = #{gatewayId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update gateway
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="central_host_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.centralHostId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="gw_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="gw_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="gw_mac = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwMac,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="gw_ip = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwIp,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="gw_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwType,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="gw_cur_version = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwCurVersion,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="gw_download_version = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when gateway_id = #{item.gatewayId,jdbcType=INTEGER} then #{item.gwDownloadVersion,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where gateway_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.gatewayId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="gateway_id" keyProperty="gatewayId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into gateway
+    (central_host_id, gw_id, gw_name, gw_mac, gw_ip, gw_type, gw_cur_version, gw_download_version
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.centralHostId,jdbcType=INTEGER}, #{item.gwId,jdbcType=INTEGER}, #{item.gwName,jdbcType=VARCHAR}, 
+        #{item.gwMac,jdbcType=VARCHAR}, #{item.gwIp,jdbcType=VARCHAR}, #{item.gwType,jdbcType=INTEGER}, 
+        #{item.gwCurVersion,jdbcType=VARCHAR}, #{item.gwDownloadVersion,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="gateway_id" keyProperty="gatewayId" parameterType="com.handinglian.contentunion.entity.Gateway" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into gateway
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gatewayId != null">
+        gateway_id,
+      </if>
+      central_host_id,
+      gw_id,
+      gw_name,
+      gw_mac,
+      gw_ip,
+      gw_type,
+      gw_cur_version,
+      gw_download_version,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gatewayId != null">
+        #{gatewayId,jdbcType=INTEGER},
+      </if>
+      #{centralHostId,jdbcType=INTEGER},
+      #{gwId,jdbcType=INTEGER},
+      #{gwName,jdbcType=VARCHAR},
+      #{gwMac,jdbcType=VARCHAR},
+      #{gwIp,jdbcType=VARCHAR},
+      #{gwType,jdbcType=INTEGER},
+      #{gwCurVersion,jdbcType=VARCHAR},
+      #{gwDownloadVersion,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="gatewayId != null">
+        gateway_id = #{gatewayId,jdbcType=INTEGER},
+      </if>
+      central_host_id = #{centralHostId,jdbcType=INTEGER},
+      gw_id = #{gwId,jdbcType=INTEGER},
+      gw_name = #{gwName,jdbcType=VARCHAR},
+      gw_mac = #{gwMac,jdbcType=VARCHAR},
+      gw_ip = #{gwIp,jdbcType=VARCHAR},
+      gw_type = #{gwType,jdbcType=INTEGER},
+      gw_cur_version = #{gwCurVersion,jdbcType=VARCHAR},
+      gw_download_version = #{gwDownloadVersion,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="gateway_id" keyProperty="gatewayId" parameterType="com.handinglian.contentunion.entity.Gateway" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into gateway
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gatewayId != null">
+        gateway_id,
+      </if>
+      <if test="centralHostId != null">
+        central_host_id,
+      </if>
+      <if test="gwId != null">
+        gw_id,
+      </if>
+      <if test="gwName != null">
+        gw_name,
+      </if>
+      <if test="gwMac != null">
+        gw_mac,
+      </if>
+      <if test="gwIp != null">
+        gw_ip,
+      </if>
+      <if test="gwType != null">
+        gw_type,
+      </if>
+      <if test="gwCurVersion != null">
+        gw_cur_version,
+      </if>
+      <if test="gwDownloadVersion != null">
+        gw_download_version,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gatewayId != null">
+        #{gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="centralHostId != null">
+        #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="gwId != null">
+        #{gwId,jdbcType=INTEGER},
+      </if>
+      <if test="gwName != null">
+        #{gwName,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null">
+        #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="gwIp != null">
+        #{gwIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwType != null">
+        #{gwType,jdbcType=INTEGER},
+      </if>
+      <if test="gwCurVersion != null">
+        #{gwCurVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gwDownloadVersion != null">
+        #{gwDownloadVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="gatewayId != null">
+        gateway_id = #{gatewayId,jdbcType=INTEGER},
+      </if>
+      <if test="centralHostId != null">
+        central_host_id = #{centralHostId,jdbcType=INTEGER},
+      </if>
+      <if test="gwId != null">
+        gw_id = #{gwId,jdbcType=INTEGER},
+      </if>
+      <if test="gwName != null">
+        gw_name = #{gwName,jdbcType=VARCHAR},
+      </if>
+      <if test="gwMac != null">
+        gw_mac = #{gwMac,jdbcType=VARCHAR},
+      </if>
+      <if test="gwIp != null">
+        gw_ip = #{gwIp,jdbcType=VARCHAR},
+      </if>
+      <if test="gwType != null">
+        gw_type = #{gwType,jdbcType=INTEGER},
+      </if>
+      <if test="gwCurVersion != null">
+        gw_cur_version = #{gwCurVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="gwDownloadVersion != null">
+        gw_download_version = #{gwDownloadVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-06-04-->
+	<select id="findOneByCentralHostId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from gateway
+        where central_host_id=#{centralHostId,jdbcType=INTEGER}
+    </select>
+</mapper>

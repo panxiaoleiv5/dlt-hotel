@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.contentunion.mapper.IntelligentSubDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.contentunion.entity.IntelligentSubDevice">
+    <!--@mbg.generated-->
+    <id column="intelligent_sub_device_id" jdbcType="INTEGER" property="intelligentSubDeviceId" />
+    <result column="intelligent_device_id" jdbcType="INTEGER" property="intelligentDeviceId" />
+    <result column="kk_device_id" jdbcType="INTEGER" property="kkDeviceId" />
+    <result column="sub_device_name" jdbcType="VARCHAR" property="subDeviceName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="power" jdbcType="INTEGER" property="power" />
+    <result column="channel" jdbcType="INTEGER" property="channel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    intelligent_sub_device_id, intelligent_device_id, kk_device_id, sub_device_name, 
+    address, `power`, channel, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from intelligent_sub_device
+    where intelligent_sub_device_id = #{intelligentSubDeviceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from intelligent_sub_device
+    where intelligent_sub_device_id = #{intelligentSubDeviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="intelligent_sub_device_id" keyProperty="intelligentSubDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentSubDevice" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_sub_device (intelligent_device_id, kk_device_id, 
+      sub_device_name, address, `power`, 
+      channel, create_time, update_time
+      )
+    values (#{intelligentDeviceId,jdbcType=INTEGER}, #{kkDeviceId,jdbcType=INTEGER}, 
+      #{subDeviceName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{power,jdbcType=INTEGER}, 
+      #{channel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="intelligent_sub_device_id" keyProperty="intelligentSubDeviceId" parameterType="com.handinglian.contentunion.entity.IntelligentSubDevice" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_sub_device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id,
+      </if>
+      <if test="kkDeviceId != null">
+        kk_device_id,
+      </if>
+      <if test="subDeviceName != null and subDeviceName != ''">
+        sub_device_name,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="power != null">
+        `power`,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="kkDeviceId != null">
+        #{kkDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="subDeviceName != null and subDeviceName != ''">
+        #{subDeviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null">
+        #{power,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.contentunion.entity.IntelligentSubDevice">
+    <!--@mbg.generated-->
+    update intelligent_sub_device
+    <set>
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="kkDeviceId != null">
+        kk_device_id = #{kkDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="subDeviceName != null and subDeviceName != ''">
+        sub_device_name = #{subDeviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null">
+        `power` = #{power,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intelligent_sub_device_id = #{intelligentSubDeviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.contentunion.entity.IntelligentSubDevice">
+    <!--@mbg.generated-->
+    update intelligent_sub_device
+    set intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      kk_device_id = #{kkDeviceId,jdbcType=INTEGER},
+      sub_device_name = #{subDeviceName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      `power` = #{power,jdbcType=INTEGER},
+      channel = #{channel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where intelligent_sub_device_id = #{intelligentSubDeviceId,jdbcType=INTEGER}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-29-->
+	<select id="findByIntelligentDeviceId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from intelligent_sub_device
+        where intelligent_device_id=#{intelligentDeviceId,jdbcType=INTEGER}
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-06-11-->
+	<delete id="deleteByIntelligentDeviceId">
+        delete from intelligent_sub_device
+        where intelligent_device_id=#{intelligentDeviceId,jdbcType=INTEGER}
+    </delete>
+
+  <select id="inquireSubDeviceNameGroupBySubDeviceName" resultType="java.lang.String">
+    SELECT s.`sub_device_name` FROM intelligent_sub_device s GROUP BY TRIM(s.`sub_device_name`)
+  </select>
+</mapper>

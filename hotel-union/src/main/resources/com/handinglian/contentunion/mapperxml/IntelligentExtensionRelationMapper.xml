@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.contentunion.mapper.IntelligentExtensionRelationMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.contentunion.entity.IntelligentExtensionRelation">
+    <!--@mbg.generated-->
+    <id column="intelligent_extension_relation_id" jdbcType="INTEGER" property="intelligentExtensionRelationId" />
+    <result column="intelligent_device_id" jdbcType="INTEGER" property="intelligentDeviceId" />
+    <result column="extension_id" jdbcType="INTEGER" property="extensionId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    intelligent_extension_relation_id, intelligent_device_id, extension_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from intelligent_extension_relation
+    where intelligent_extension_relation_id = #{intelligentExtensionRelationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from intelligent_extension_relation
+    where intelligent_extension_relation_id = #{intelligentExtensionRelationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="intelligent_extension_relation_id" keyProperty="intelligentExtensionRelationId" parameterType="com.handinglian.contentunion.entity.IntelligentExtensionRelation" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_extension_relation (intelligent_device_id, extension_id, 
+      create_time)
+    values (#{intelligentDeviceId,jdbcType=INTEGER}, #{extensionId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="intelligent_extension_relation_id" keyProperty="intelligentExtensionRelationId" parameterType="com.handinglian.contentunion.entity.IntelligentExtensionRelation" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_extension_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id,
+      </if>
+      <if test="extensionId != null">
+        extension_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="intelligentDeviceId != null">
+        #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="extensionId != null">
+        #{extensionId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.contentunion.entity.IntelligentExtensionRelation">
+    <!--@mbg.generated-->
+    update intelligent_extension_relation
+    <set>
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="extensionId != null">
+        extension_id = #{extensionId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intelligent_extension_relation_id = #{intelligentExtensionRelationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.contentunion.entity.IntelligentExtensionRelation">
+    <!--@mbg.generated-->
+    update intelligent_extension_relation
+    set intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      extension_id = #{extensionId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where intelligent_extension_relation_id = #{intelligentExtensionRelationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update intelligent_extension_relation
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="intelligent_device_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_extension_relation_id = #{item.intelligentExtensionRelationId,jdbcType=INTEGER} then #{item.intelligentDeviceId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="extension_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_extension_relation_id = #{item.intelligentExtensionRelationId,jdbcType=INTEGER} then #{item.extensionId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when intelligent_extension_relation_id = #{item.intelligentExtensionRelationId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where intelligent_extension_relation_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.intelligentExtensionRelationId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="intelligent_extension_relation_id" keyProperty="intelligentExtensionRelationId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_extension_relation
+    (intelligent_device_id, extension_id, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.intelligentDeviceId,jdbcType=INTEGER}, #{item.extensionId,jdbcType=INTEGER}, 
+        #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="intelligent_extension_relation_id" keyProperty="intelligentExtensionRelationId" parameterType="com.handinglian.contentunion.entity.IntelligentExtensionRelation" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_extension_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentExtensionRelationId != null">
+        intelligent_extension_relation_id,
+      </if>
+      intelligent_device_id,
+      extension_id,
+      create_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentExtensionRelationId != null">
+        #{intelligentExtensionRelationId,jdbcType=INTEGER},
+      </if>
+      #{intelligentDeviceId,jdbcType=INTEGER},
+      #{extensionId,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="intelligentExtensionRelationId != null">
+        intelligent_extension_relation_id = #{intelligentExtensionRelationId,jdbcType=INTEGER},
+      </if>
+      intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      extension_id = #{extensionId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="intelligent_extension_relation_id" keyProperty="intelligentExtensionRelationId" parameterType="com.handinglian.contentunion.entity.IntelligentExtensionRelation" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into intelligent_extension_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentExtensionRelationId != null">
+        intelligent_extension_relation_id,
+      </if>
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id,
+      </if>
+      <if test="extensionId != null">
+        extension_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="intelligentExtensionRelationId != null">
+        #{intelligentExtensionRelationId,jdbcType=INTEGER},
+      </if>
+      <if test="intelligentDeviceId != null">
+        #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="extensionId != null">
+        #{extensionId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="intelligentExtensionRelationId != null">
+        intelligent_extension_relation_id = #{intelligentExtensionRelationId,jdbcType=INTEGER},
+      </if>
+      <if test="intelligentDeviceId != null">
+        intelligent_device_id = #{intelligentDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="extensionId != null">
+        extension_id = #{extensionId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-29-->
+	<select id="findExtensionIdByIntelligentDeviceId" resultType="java.lang.Long">
+    select extension_id
+    from intelligent_extension_relation
+    where intelligent_device_id=#{intelligentDeviceId,jdbcType=INTEGER}
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-29-->
+	<delete id="deleteByintelligentDeviceIdAndExtensionIdIn">
+    delete from intelligent_extension_relation
+    where intelligent_device_id=#{intelligentDeviceId,jdbcType=INTEGER} and extension_id in
+    <foreach close=")" collection="extensionIdList" index="index" item="item" open="(" separator=",">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+</mapper>
