@@ -4,6 +4,7 @@ import com.apidoc.annotation.Api;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
+import com.handinglian.contentunion.dto.ContextualModelDto;
 import com.handinglian.contentunion.entity.ContextualModel;
 import com.handinglian.contentunion.service.ContextualModelService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +23,8 @@ public class ContextualModelController {
      * 创建情景模式
      */
     @PostMapping(value = "/createContextualModel")
-    public ResultData createCentralHost(String modelName) {
-        int amount = contextualModelService.createContextualModel(modelName);
+    public ResultData createCentralHost(@RequestBody ContextualModelDto contextualModelDto) {
+        int amount = contextualModelService.createContextualModel(contextualModelDto.getModelName());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -40,8 +41,8 @@ public class ContextualModelController {
      * 修改情景模式名称
      */
     @PutMapping(value = "/updateContextualModelName")
-    public ResultData updateContextualModelName(Integer contextualModelId, String modelName) {
-        int amount = contextualModelService.updateContextualModelName(contextualModelId, modelName);
+    public ResultData updateContextualModelName(@RequestBody ContextualModelDto contextualModelDto) {
+        int amount = contextualModelService.updateContextualModelName(contextualModelDto.getContextualModelId(), contextualModelDto.getModelName());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -58,8 +59,8 @@ public class ContextualModelController {
      * 添加智能物品
      */
     @PostMapping(value = "/addIntelligentArticle")
-    public ResultData addIntelligentArticle(String kkDeviceNames, Integer contextualModelId) {
-        int amount = contextualModelService.addIntelligentArticle(kkDeviceNames, contextualModelId);
+    public ResultData addIntelligentArticle(@RequestBody ContextualModelDto contextualModelDto) {
+        int amount = contextualModelService.addIntelligentArticle(contextualModelDto.getKkDeviceNames(), contextualModelDto.getContextualModelId());
         return ResultDataFactory.generateResultData(amount);
     }
 

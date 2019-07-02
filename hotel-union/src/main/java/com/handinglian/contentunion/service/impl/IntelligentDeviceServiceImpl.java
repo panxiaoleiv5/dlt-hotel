@@ -7,6 +7,7 @@ import com.handinglian.common.enums.ValidEnum;
 import com.handinglian.common.exception.BizException;
 import com.handinglian.common.utils.*;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
+import com.handinglian.contentunion.dto.IntelligentDeviceDto;
 import com.handinglian.contentunion.entity.*;
 import com.handinglian.contentunion.mapper.*;
 import com.handinglian.contentunion.service.IntelligentDeviceService;
@@ -37,23 +38,19 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int createIntelligentDevice(String macIp, String productId, String productName, String deviceAddress, Integer centralHostId, String extensionId) throws IOException, DocumentException {
-        macIp = GeneralUtil.processMacIp(macIp);
+    public int createIntelligentDevice(IntelligentDeviceDto intelligentDeviceDto) throws IOException, DocumentException {
+        String macIp = GeneralUtil.processMacIp(intelligentDeviceDto.getMacIp());
 
         //智能设备存入数据库
-        IntelligentDevice intelligentDevice = new IntelligentDevice();
+        IntelligentDevice intelligentDevice = FastJsonUtil.ObjectToObject(intelligentDeviceDto, IntelligentDevice.class);
         intelligentDevice.setMacIp(macIp);
-        intelligentDevice.setProductId(productId);
-        intelligentDevice.setProductName(productName);
-        intelligentDevice.setDeviceAddress(deviceAddress);
-        intelligentDevice.setCentralHostId(centralHostId);
         intelligentDevice.setCreateTime(new Date());
         intelligentDevice.setUpdateTime(new Date());
         intelligentDevice.setValid(1);
 
         int amount = intelligentDeviceMapper.insertSelectiveWithPrimaryKey(intelligentDevice);
 
-        String[] extensionIds = extensionId.split(",");
+        String[] extensionIds = intelligentDeviceDto.getExtensionId().split(",");
         Date now = new Date();
         for (String extensionid : extensionIds){
             IntelligentExtensionRelation intelligentExtensionRelation = new IntelligentExtensionRelation();
@@ -63,8 +60,8 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
             intelligentExtensionRelationMapper.insert(intelligentExtensionRelation);
         }
 
-        CentralHost centralHost = centralHostMapper.selectByPrimaryKey(centralHostId);
-        Gateway gateway = gatewayMapper.findOneByCentralHostId(centralHostId);
+        CentralHost centralHost = centralHostMapper.selectByPrimaryKey(intelligentDevice.getCentralHostId());
+        Gateway gateway = gatewayMapper.findOneByCentralHostId(intelligentDevice.getCentralHostId());
 
         //检查是否是白名单模式
         KkWhiteListStateJsonDto kkWhiteListStateJsonDto = kongkeApiService.getGwWorkmode(centralHost.getKkHostId(), gateway.getGwId().toString());
@@ -77,7 +74,7 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
         }
 
         //添加白名单
-        kongkeApiService.addGwWhiteList(centralHost.getKkHostId(), gateway.getGwId().toString(), macIp, productId);
+        kongkeApiService.addGwWhiteList(centralHost.getKkHostId(), gateway.getGwId().toString(), macIp, intelligentDevice.getProductId());
 
         return amount;
     }

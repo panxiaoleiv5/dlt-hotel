@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
 import com.handinglian.common.service.RedisService;
+import com.handinglian.contentunion.dto.CentralHostDto;
 import com.handinglian.contentunion.entity.CentralHost;
 import com.handinglian.contentunion.entity.IntelligentDevice;
 import com.handinglian.contentunion.service.CentralHostService;
@@ -35,12 +36,12 @@ public class CentralHostController {
      * 创建中控主机
      */
     @PostMapping(value = "/createCentralHost")
-    public ResultData createCentralHost(String hostAddress, String macIp) throws IOException, DocumentException {
-        CentralHost centralHost = centralHostService.loadInvalidCentralHost(macIp);
+    public ResultData createCentralHost(@RequestBody CentralHostDto centralHostDto) throws IOException, DocumentException {
+        CentralHost centralHost = centralHostService.loadInvalidCentralHost(centralHostDto.getMacIp());
         if (centralHost != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         } else {
-            int amount = centralHostService.createCentralHost(hostAddress, macIp);
+            int amount = centralHostService.createCentralHost(centralHostDto.getHostAddress(), centralHostDto.getMacIp());
             return ResultDataFactory.generateResultData(amount);
         }
     }
@@ -49,8 +50,8 @@ public class CentralHostController {
     * 激活中控主机
     */
     @PutMapping(value = "/activateCentralHost")
-    public ResultData activateCentralHost(Integer centralHostId) throws IOException, DocumentException {
-        int amount = centralHostService.activateCentralHost(centralHostId);
+    public ResultData activateCentralHost(@RequestBody CentralHostDto centralHostDto) throws IOException, DocumentException {
+        int amount = centralHostService.activateCentralHost(centralHostDto.getCentralHostId());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -58,8 +59,8 @@ public class CentralHostController {
      * 从删除列表中恢复中控主机
      */
     @PutMapping(value = "/recoverCentralHost")
-    public ResultData recoverCentralHost(String macIp) throws IOException, DocumentException {
-        int amount = centralHostService.recoverCentralHost(macIp);
+    public ResultData recoverCentralHost(@RequestBody CentralHostDto centralHostDto) throws IOException, DocumentException {
+        int amount = centralHostService.recoverCentralHost(centralHostDto.getMacIp());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -76,10 +77,10 @@ public class CentralHostController {
      * 更新中控主机
      */
     @PutMapping(value = "/updateCentralHost")
-    public ResultData updateCentralHost(Integer centralHostId, String hostAddress) {
+    public ResultData updateCentralHost(@RequestBody CentralHostDto centralHostDto) {
         CentralHost centralHost = new CentralHost();
-        centralHost.setCentralHostId(centralHostId);
-        centralHost.setHostAddress(hostAddress);
+        centralHost.setCentralHostId(centralHostDto.getCentralHostId());
+        centralHost.setHostAddress(centralHostDto.getHostAddress());
         centralHost.setUpdateTime(new Date());
 
         int amount = centralHostService.updateCentralHost(centralHost);
@@ -109,8 +110,8 @@ public class CentralHostController {
      * 中控主机组网
      */
     @PutMapping("/uniteNetwork")
-    public ResultData uniteNetwork(Integer centralHostId) throws IOException, DocumentException {
-        centralHostService.uniteNetwork(centralHostId);
+    public ResultData uniteNetwork(@RequestBody CentralHostDto centralHostDto) throws IOException, DocumentException {
+        centralHostService.uniteNetwork(centralHostDto.getCentralHostId());
         return ResultDataFactory.generateSuccessResultData(null);
     }
 

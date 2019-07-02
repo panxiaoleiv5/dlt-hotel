@@ -3,6 +3,7 @@ package com.handinglian.system.controller;
 import com.apidoc.annotation.Api;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
+import com.handinglian.system.dto.DepartmentDto;
 import com.handinglian.system.entity.Department;
 import com.handinglian.system.service.DepartmentService;
 import org.dom4j.DocumentException;
@@ -25,12 +26,12 @@ public class DepartmentController {
      * 创建部门
      */
     @PostMapping("/createDepartment")
-    public ResultData createDepartment(String departmentName){
-        Department department = departmentService.loadInvalidDepartment(departmentName);
+    public ResultData createDepartment(@RequestBody DepartmentDto departmentDto){
+        Department department = departmentService.loadInvalidDepartment(departmentDto.getDepartmentName());
         if (department != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         } else {
-            int amount = departmentService.createDepartment(departmentName);
+            int amount = departmentService.createDepartment(departmentDto.getDepartmentName());
             return ResultDataFactory.generateResultData(amount);
         }
     }
@@ -39,8 +40,8 @@ public class DepartmentController {
      * 从删除列表中恢复部门
      */
     @PutMapping(value = "/recoverDepartment")
-    public ResultData recoverDepartment(String departmentName) {
-        int amount = departmentService.recoverDepartment(departmentName);
+    public ResultData recoverDepartment(@RequestBody DepartmentDto departmentDto) {
+        int amount = departmentService.recoverDepartment(departmentDto.getDepartmentName());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -48,7 +49,7 @@ public class DepartmentController {
      * 删除部门
      */
     @DeleteMapping(value = "/deleteDepartment")
-    public ResultData deleteDepartment(Integer departmentId) throws IOException, DocumentException {
+    public ResultData deleteDepartment(Integer departmentId) {
         int amount = departmentService.deleteDepartment(departmentId);
         return ResultDataFactory.generateResultData(amount);
     }
@@ -57,10 +58,10 @@ public class DepartmentController {
      * 更新部门
      */
     @PutMapping(value = "/updateDepartment")
-    public ResultData updateDepartment(Integer departmentId, String departmentName) {
+    public ResultData updateDepartment(@RequestBody DepartmentDto departmentDto) {
         Department department = new Department();
-        department.setDepartmentId(departmentId);
-        department.setDepartmentName(departmentName);
+        department.setDepartmentId(departmentDto.getDepartmentId());
+        department.setDepartmentName(departmentDto.getDepartmentName());
         department.setUpdateTime(new Date());
 
         int amount = departmentService.updateDepartment(department);

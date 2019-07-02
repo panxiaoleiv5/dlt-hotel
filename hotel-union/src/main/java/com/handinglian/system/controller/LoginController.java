@@ -3,6 +3,7 @@ package com.handinglian.system.controller;
 import com.apidoc.annotation.Api;
 import com.handinglian.common.shiro.MyFormAuthenticationFilter;
 import com.handinglian.common.utils.StringUtils;
+import com.handinglian.system.dto.LoginDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -12,13 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Api("登录")
 @Controller
 @Slf4j
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class LoginController {
 
     /**
@@ -33,7 +34,7 @@ public class LoginController {
      * 登录失败或已经登录，真正登录的POST请求由Filter完成
      */
     @PostMapping("/login")
-    public String login(HttpServletRequest request, Model model, String username, String password){
+    public String login(HttpServletRequest request, Model model, @RequestBody LoginDto loginDto){
         Subject subject = SecurityUtils.getSubject();
         String principal = (String) subject.getPrincipal();
 
@@ -48,10 +49,10 @@ public class LoginController {
         if (StringUtils.isBlank(message) || StringUtils.equals(message, null)){
             message = "用户或密码错误, 请重试.";
         }
-        model.addAttribute(MyFormAuthenticationFilter.DEFAULT_USERNAME_PARAM, username);
-        model.addAttribute(MyFormAuthenticationFilter.DEFAULT_MESSAGE_PARAM, message);
+        model.addAttribute(MyFormAuthenticationFilter.DEFAULT_USERNAME_PARAM, loginDto.getUsername());
+        model.addAttribute(MyFormAuthenticationFilter.DEFAULT_MESSAGE_PARAM, loginDto.getPassword());
         model.addAttribute("loginError", true);
-        return "/login.html";
+        return "redirect:/login.html";
     }
 
 }

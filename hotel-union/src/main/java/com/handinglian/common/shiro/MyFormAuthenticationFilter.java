@@ -1,7 +1,10 @@
 package com.handinglian.common.shiro;
 
 
+import com.alibaba.fastjson.JSON;
+import com.handinglian.common.utils.FastJsonUtil;
 import com.handinglian.common.utils.StringUtils;
+import com.handinglian.system.dto.LoginDto;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -11,6 +14,7 @@ import org.apache.shiro.web.util.WebUtils;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * @author Fly
@@ -27,14 +31,59 @@ public class MyFormAuthenticationFilter extends org.apache.shiro.web.filter.auth
 
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        String username = getUsername(request);
-        String password = getPassword(request);
-        if (password==null){
-            password = "";
+        String json = "";
+        try {
+            json = getRequestPostStr((HttpServletRequest) request);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        LoginDto loginDto = JSON.parseObject(json, LoginDto.class);
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
         boolean rememberMe = isRememberMe(request);
         String host = StringUtils.getRemoteAddr((HttpServletRequest)request);
         return new UsernamePasswordToken(username, password.toCharArray(), rememberMe, host);
+    }
+
+    /**
+     * 描述:获取 post 请求内容
+     * @param request
+     * @return
+     * @throws IOException
+     */
+    public static String getRequestPostStr(HttpServletRequest request)
+            throws IOException {
+        byte buffer[] = getRequestPostBytes(request);
+        String charEncoding = request.getCharacterEncoding();
+        if (charEncoding == null) {
+            charEncoding = "UTF-8";
+        }
+        return new String(buffer, charEncoding);
+    }
+
+    /**
+     * 描述:获取 post 请求的 byte[] 数组
+     * @param request
+     * @return
+     * @throws IOException
+     */
+    public static byte[] getRequestPostBytes(HttpServletRequest request)
+            throws IOException {
+        int contentLength = request.getContentLength();
+        if(contentLength<0){
+            return null;
+        }
+        byte buffer[] = new byte[contentLength];
+        for (int i = 0; i < contentLength;) {
+
+            int readlen = request.getInputStream().read(buffer, i,
+                    contentLength - i);
+            if (readlen == -1) {
+                break;
+            }
+            i += readlen;
+        }
+        return buffer;
     }
 
     /**

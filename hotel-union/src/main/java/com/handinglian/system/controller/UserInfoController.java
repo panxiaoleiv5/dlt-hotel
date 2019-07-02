@@ -4,6 +4,8 @@ import com.apidoc.annotation.Api;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
+import com.handinglian.common.utils.FastJsonUtil;
+import com.handinglian.system.dto.UserInfoDto;
 import com.handinglian.system.entity.UserInfo;
 import com.handinglian.system.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,12 @@ public class UserInfoController {
      * 创建用户
      */
     @PostMapping("/createUserInfo")
-    public ResultData createUserInfo(Integer departmentId, String userName, String position, String jobNum, String mobilePhoneNum, String email){
-        UserInfo userInfo = userInfoService.loadInvalidUserInfo(jobNum);
+    public ResultData createUserInfo(@RequestBody UserInfoDto userInfoDto){
+        UserInfo userInfo = userInfoService.loadInvalidUserInfo(userInfoDto.getJobNum());
         if (userInfo != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         } else {
-            int amount = userInfoService.createUserInfo(departmentId, userName, position, jobNum, mobilePhoneNum, email);
+            int amount = userInfoService.createUserInfo(userInfoDto);
             return ResultDataFactory.generateResultData(amount);
         }
     }
@@ -36,8 +38,8 @@ public class UserInfoController {
      * 从删除列表中恢复用户
      */
     @PutMapping(value = "/recoverUserInfo")
-    public ResultData recoverUserInfo(String jobNum) {
-        int amount = userInfoService.recoverUserInfo(jobNum);
+    public ResultData recoverUserInfo(@RequestBody UserInfoDto userInfoDto) {
+        int amount = userInfoService.recoverUserInfo(userInfoDto.getJobNum());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -54,15 +56,8 @@ public class UserInfoController {
      * 更新用户
      */
     @PutMapping(value = "/updateUserInfo")
-    public ResultData updateUserInfo(Integer userId, Integer departmentId, String userName, String position, String jobNum, String mobilePhoneNum, String email) {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(userId);
-        userInfo.setDepartmentId(departmentId);
-        userInfo.setUserName(userName);
-        userInfo.setPosition(position);
-        userInfo.setJobNum(jobNum);
-        userInfo.setMobilePhoneNum(mobilePhoneNum);
-        userInfo.setEamil(email);
+    public ResultData updateUserInfo(@RequestBody UserInfoDto userInfoDto) {
+        UserInfo userInfo = FastJsonUtil.ObjectToObject(userInfoDto, UserInfo.class);
         userInfo.setUpdateTime(new Date());
 
         int amount = userInfoService.updateUserInfo(userInfo);

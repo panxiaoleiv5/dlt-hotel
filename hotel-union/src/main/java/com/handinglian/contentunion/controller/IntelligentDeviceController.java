@@ -1,14 +1,13 @@
 package com.handinglian.contentunion.controller;
+
 import com.apidoc.annotation.Api;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
-import com.handinglian.common.enums.ValidEnum;
-import com.handinglian.common.exception.BizException;
-import com.handinglian.common.exception.KkBizException;
 import com.handinglian.common.factory.ResultDataFactory;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
+import com.handinglian.contentunion.dto.IntelligentDeviceDto;
+import com.handinglian.contentunion.dto.IntelligentSubDeviceDto;
 import com.handinglian.contentunion.entity.IntelligentDevice;
-import com.handinglian.contentunion.param.IntelligentDeviceParam;
 import com.handinglian.contentunion.service.IntelligentDeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
@@ -16,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 @Api("智能设备")
 @Slf4j
@@ -32,13 +29,13 @@ public class IntelligentDeviceController {
      * 创建智能设备
      */
     @PostMapping("/createIntelligentDevice")
-    public ResultData createIntelligentDevice(@RequestBody IntelligentDeviceParam intelligentDeviceParam) throws IOException, DocumentException {
-        IntelligentDevice intelligentDevice = intelligentDeviceService.loadInvalidIntelligentDevice(intelligentDeviceParam.getMacIp());
+    public ResultData createIntelligentDevice(@RequestBody IntelligentDeviceDto intelligentDeviceDto) throws IOException, DocumentException {
+        IntelligentDevice intelligentDevice = intelligentDeviceService.loadInvalidIntelligentDevice(intelligentDeviceDto.getMacIp());
         if (intelligentDevice != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         }
 
-        int amount = intelligentDeviceService.createIntelligentDevice(intelligentDeviceParam.getMacIp(), intelligentDeviceParam.getProductId(), intelligentDeviceParam.getProductName(), intelligentDeviceParam.getDeviceAddress(), intelligentDeviceParam.getCentralHostId(), intelligentDeviceParam.getExtensionId());
+        int amount = intelligentDeviceService.createIntelligentDevice(intelligentDeviceDto);
 
         return ResultDataFactory.generateResultData(amount);
     }
@@ -47,8 +44,8 @@ public class IntelligentDeviceController {
      * 从删除列表恢复智能设备
      */
     @PutMapping("/recoverIntelligentDevice")
-    public ResultData recoverIntelligentDevice(@RequestBody List<String> strings) throws IOException, DocumentException {
-        int amount = intelligentDeviceService.recoverIntelligentDevice(null);
+    public ResultData recoverIntelligentDevice(@RequestBody IntelligentDeviceDto intelligentDeviceDto) throws IOException, DocumentException {
+        int amount = intelligentDeviceService.recoverIntelligentDevice(intelligentDeviceDto.getCentralHostId());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -65,8 +62,8 @@ public class IntelligentDeviceController {
      * 更新智能设备
      */
     @PutMapping("/updateIntelligentDevice")
-    public ResultData updateIntelligentDevice(Integer intelligentDeviceId, String deviceAddress, String extensionId, Integer centralHostId){
-        int amount = intelligentDeviceService.updateIntelligentDevice(intelligentDeviceId, deviceAddress, extensionId, centralHostId);
+    public ResultData updateIntelligentDevice(@RequestBody IntelligentDeviceDto intelligentDeviceDto){
+        int amount = intelligentDeviceService.updateIntelligentDevice(intelligentDeviceDto.getCentralHostId(), intelligentDeviceDto.getDeviceAddress(), intelligentDeviceDto.getExtensionId(), intelligentDeviceDto.getCentralHostId());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -74,8 +71,8 @@ public class IntelligentDeviceController {
      * 更新智能子设备
      */
     @PutMapping("/updateIntelligentSubDevice")
-    public ResultData updateIntelligentSubDevice(Integer intelligentSubDeviceId, String deviceName, Integer power){
-        int amount = intelligentDeviceService.updateIntelligentSubDevice(intelligentSubDeviceId, deviceName, power);
+    public ResultData updateIntelligentSubDevice(@RequestBody IntelligentSubDeviceDto intelligentSubDeviceDto){
+        int amount = intelligentDeviceService.updateIntelligentSubDevice(intelligentSubDeviceDto.getIntelligentDeviceId(), intelligentSubDeviceDto.getSubProductName(), intelligentSubDeviceDto.getPower());
         return ResultDataFactory.generateResultData(amount);
     }
 

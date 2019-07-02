@@ -2,6 +2,7 @@ package com.handinglian.contentunion.service;
 
 import com.github.pagehelper.PageInfo;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
+import com.handinglian.contentunion.dto.IntelligentDeviceDto;
 import com.handinglian.contentunion.entity.IntelligentDevice;
 import com.handinglian.contentunion.entity.IntelligentSubDevice;
 import org.dom4j.DocumentException;
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IntelligentDeviceService {
-    int createIntelligentDevice(String macIp, String productId, String productName, String deviceAddress, Integer centralHostId, String extensionId) throws IOException, DocumentException;
+    int createIntelligentDevice(IntelligentDeviceDto intelligentDeviceDto) throws IOException, DocumentException;
 
     /**
     * 从删除列表中恢复数据

@@ -3,7 +3,9 @@ package com.handinglian.system.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.common.enums.ValidEnum;
+import com.handinglian.common.utils.FastJsonUtil;
 import com.handinglian.common.utils.MD5Util;
+import com.handinglian.system.dto.UserInfoDto;
 import com.handinglian.system.entity.Permission;
 import com.handinglian.system.entity.UserInfo;
 import com.handinglian.system.mapper.UserInfoMapper;
@@ -24,18 +26,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     @Transactional
-    public int createUserInfo(Integer departmentId, String userName, String position, String jobNum, String mobilePhoneNum, String email) {
+    public int createUserInfo(UserInfoDto userInfoDto) {
         Date now = new Date();
-        UserInfo user = new UserInfo();
-        user.setDepartmentId(departmentId);
-        user.setUserName(userName);
-        user.setPosition(position);
-        user.setJobNum(jobNum);
-        user.setMobilePhoneNum(mobilePhoneNum);
-        user.setEamil(email);
+        UserInfo user = FastJsonUtil.ObjectToObject(userInfoDto, UserInfo.class);
 
         //产生盐：工号+随机字串
-        String salt = jobNum + new SecureRandomNumberGenerator().nextBytes().toHex();
+        String salt = user.getJobNum() + new SecureRandomNumberGenerator().nextBytes().toHex();
         String password = generatePassword(salt);
 
         user.setPassword(password);

@@ -1,13 +1,14 @@
 package com.handinglian.system.service;
 
 import com.github.pagehelper.PageInfo;
+import com.handinglian.system.dto.UserInfoDto;
 import com.handinglian.system.entity.Permission;
 import com.handinglian.system.entity.UserInfo;
 
 import java.util.List;
 
 public interface UserInfoService {
-    int createUserInfo(Integer departmentId, String userName, String position, String jobNum, String mobilePhoneNum, String email);
+    int createUserInfo(UserInfoDto userInfoDto);
 
     /**
      * 查询被删除的用户

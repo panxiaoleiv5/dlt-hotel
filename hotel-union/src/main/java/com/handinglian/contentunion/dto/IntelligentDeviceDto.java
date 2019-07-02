@@ -1,4 +1,4 @@
-package com.handinglian.contentunion.param;
+package com.handinglian.contentunion.dto;
 
 import com.handinglian.contentunion.entity.IntelligentSubDevice;
 import lombok.Data;
@@ -6,7 +6,12 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class IntelligentDeviceParam {
+public class IntelligentDeviceDto {
+    /**
+     * mac ip
+     */
+    private Integer intelligentDeviceId;
+
     /**
      * mac ip
      */

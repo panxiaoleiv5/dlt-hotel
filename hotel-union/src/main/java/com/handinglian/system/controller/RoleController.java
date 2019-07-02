@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
 import com.handinglian.system.dto.MenuPermissionDto;
+import com.handinglian.system.dto.RoleDto;
 import com.handinglian.system.entity.Role;
 import com.handinglian.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,12 @@ public class RoleController {
      * 创建角色
      */
     @PostMapping("/createRole")
-    public ResultData createRole(String roleName){
-        Role role = roleService.loadInvalidRole(roleName);
+    public ResultData createRole(@RequestBody RoleDto roleDto){
+        Role role = roleService.loadInvalidRole(roleDto.getRoleName());
         if (role != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         } else {
-            int amount = roleService.createRole(roleName);
+            int amount = roleService.createRole(roleDto.getRoleName());
             return ResultDataFactory.generateResultData(amount);
         }
     }
@@ -38,8 +39,8 @@ public class RoleController {
      * 从删除列表中恢复角色
      */
     @PutMapping(value = "/recoverRole")
-    public ResultData recoverRole(String roleName) {
-        int amount = roleService.recoverRole(roleName);
+    public ResultData recoverRole(@RequestBody RoleDto roleDto) {
+        int amount = roleService.recoverRole(roleDto.getRoleName());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -56,8 +57,8 @@ public class RoleController {
      * 更新角色
      */
     @PutMapping(value = "/updateRole")
-    public ResultData updateRole(Integer roleId, String roleName) {
-        int amount = roleService.updateRole(roleId, roleName);
+    public ResultData updateRole(@RequestBody RoleDto roleDto) {
+        int amount = roleService.updateRole(roleDto.getRoleId(), roleDto.getRoleName());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -93,8 +94,8 @@ public class RoleController {
      * 增加或删除权限
      */
     @PostMapping("/addOrDeletePermission")
-    public ResultData addOrDeletePermission(Integer roleId, String permissionIds) {
-        roleService.addOrDeletePermission(roleId, permissionIds);
+    public ResultData addOrDeletePermission(@RequestBody RoleDto roleDto) {
+        roleService.addOrDeletePermission(roleDto.getRoleId(), roleDto.getPermissionIds());
         return ResultDataFactory.generateSuccessResultData(null);
     }
 
