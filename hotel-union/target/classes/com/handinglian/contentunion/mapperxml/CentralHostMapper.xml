@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.contentunion.mapper.CentralHostMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.contentunion.entity.CentralHost">
+    <!--@mbg.generated-->
+    <id column="central_host_id" jdbcType="INTEGER" property="centralHostId" />
+    <result column="host_address" jdbcType="VARCHAR" property="hostAddress" />
+    <result column="local_ip" jdbcType="VARCHAR" property="localIp" />
+    <result column="mac_ip" jdbcType="VARCHAR" property="macIp" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="kk_host_id" jdbcType="VARCHAR" property="kkHostId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="cur_version" jdbcType="VARCHAR" property="curVersion" />
+    <result column="download_version" jdbcType="VARCHAR" property="downloadVersion" />
+    <result column="valid" jdbcType="TINYINT" property="valid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    central_host_id, host_address, local_ip, mac_ip, create_time, update_time, kk_host_id, 
+    product_id, device_id, cur_version, download_version, `valid`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from central_host
+    where central_host_id = #{centralHostId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from central_host
+    where central_host_id = #{centralHostId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="central_host_id" keyProperty="centralHostId" parameterType="com.handinglian.contentunion.entity.CentralHost" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into central_host (host_address, local_ip, mac_ip, 
+      create_time, update_time, kk_host_id, 
+      product_id, device_id, cur_version, 
+      download_version, `valid`)
+    values (#{hostAddress,jdbcType=VARCHAR}, #{localIp,jdbcType=VARCHAR}, #{macIp,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{kkHostId,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=VARCHAR}, #{deviceId,jdbcType=VARCHAR}, #{curVersion,jdbcType=VARCHAR}, 
+      #{downloadVersion,jdbcType=VARCHAR}, #{valid,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="central_host_id" keyProperty="centralHostId" parameterType="com.handinglian.contentunion.entity.CentralHost" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into central_host
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hostAddress != null and hostAddress != ''">
+        host_address,
+      </if>
+      <if test="localIp != null and localIp != ''">
+        local_ip,
+      </if>
+      <if test="macIp != null and macIp != ''">
+        mac_ip,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="kkHostId != null and kkHostId != ''">
+        kk_host_id,
+      </if>
+      <if test="productId != null and productId != ''">
+        product_id,
+      </if>
+      <if test="deviceId != null and deviceId != ''">
+        device_id,
+      </if>
+      <if test="curVersion != null and curVersion != ''">
+        cur_version,
+      </if>
+      <if test="downloadVersion != null and downloadVersion != ''">
+        download_version,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hostAddress != null and hostAddress != ''">
+        #{hostAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="localIp != null and localIp != ''">
+        #{localIp,jdbcType=VARCHAR},
+      </if>
+      <if test="macIp != null and macIp != ''">
+        #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kkHostId != null and kkHostId != ''">
+        #{kkHostId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null and productId != ''">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null and deviceId != ''">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="curVersion != null and curVersion != ''">
+        #{curVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadVersion != null and downloadVersion != ''">
+        #{downloadVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.contentunion.entity.CentralHost">
+    <!--@mbg.generated-->
+    update central_host
+    <set>
+      <if test="hostAddress != null and hostAddress != ''">
+        host_address = #{hostAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="localIp != null and localIp != ''">
+        local_ip = #{localIp,jdbcType=VARCHAR},
+      </if>
+      <if test="macIp != null and macIp != ''">
+        mac_ip = #{macIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kkHostId != null and kkHostId != ''">
+        kk_host_id = #{kkHostId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null and productId != ''">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null and deviceId != ''">
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="curVersion != null and curVersion != ''">
+        cur_version = #{curVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadVersion != null and downloadVersion != ''">
+        download_version = #{downloadVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        `valid` = #{valid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where central_host_id = #{centralHostId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.contentunion.entity.CentralHost">
+    <!--@mbg.generated-->
+    update central_host
+    set host_address = #{hostAddress,jdbcType=VARCHAR},
+      local_ip = #{localIp,jdbcType=VARCHAR},
+      mac_ip = #{macIp,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      kk_host_id = #{kkHostId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      cur_version = #{curVersion,jdbcType=VARCHAR},
+      download_version = #{downloadVersion,jdbcType=VARCHAR},
+      `valid` = #{valid,jdbcType=TINYINT}
+    where central_host_id = #{centralHostId,jdbcType=INTEGER}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2019-05-27-->
+	<select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from central_host where valid=1
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-06-03-->
+	<select id="findInvalidOneByMacIp" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from central_host
+    where mac_ip=#{macIp,jdbcType=VARCHAR} and valid=0
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-06-25-->
+  <select id="findOneByMacIp" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from central_host
+        where mac_ip=#{macIp,jdbcType=VARCHAR} and valid=1
+    </select>
+
+</mapper>

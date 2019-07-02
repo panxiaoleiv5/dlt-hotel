@@ -8,6 +8,7 @@ import com.handinglian.common.exception.KkBizException;
 import com.handinglian.common.factory.ResultDataFactory;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
 import com.handinglian.contentunion.entity.IntelligentDevice;
+import com.handinglian.contentunion.param.IntelligentDeviceParam;
 import com.handinglian.contentunion.service.IntelligentDeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @Api("智能设备")
 @Slf4j
@@ -30,13 +32,13 @@ public class IntelligentDeviceController {
      * 创建智能设备
      */
     @PostMapping("/createIntelligentDevice")
-    public ResultData createIntelligentDevice(String macIp, String productId, String productName, String deviceAddress, Integer centralHostId, String extensionId) throws IOException, DocumentException {
-        IntelligentDevice intelligentDevice = intelligentDeviceService.loadInvalidIntelligentDevice(macIp);
+    public ResultData createIntelligentDevice(@RequestBody IntelligentDeviceParam intelligentDeviceParam) throws IOException, DocumentException {
+        IntelligentDevice intelligentDevice = intelligentDeviceService.loadInvalidIntelligentDevice(intelligentDeviceParam.getMacIp());
         if (intelligentDevice != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         }
 
-        int amount = intelligentDeviceService.createIntelligentDevice(macIp, productId, productName, deviceAddress, centralHostId, extensionId);
+        int amount = intelligentDeviceService.createIntelligentDevice(intelligentDeviceParam.getMacIp(), intelligentDeviceParam.getProductId(), intelligentDeviceParam.getProductName(), intelligentDeviceParam.getDeviceAddress(), intelligentDeviceParam.getCentralHostId(), intelligentDeviceParam.getExtensionId());
 
         return ResultDataFactory.generateResultData(amount);
     }
@@ -45,8 +47,8 @@ public class IntelligentDeviceController {
      * 从删除列表恢复智能设备
      */
     @PutMapping("/recoverIntelligentDevice")
-    public ResultData recoverIntelligentDevice(Integer intelligentDeviceId) throws IOException, DocumentException {
-        int amount = intelligentDeviceService.recoverIntelligentDevice(intelligentDeviceId);
+    public ResultData recoverIntelligentDevice(@RequestBody List<String> strings) throws IOException, DocumentException {
+        int amount = intelligentDeviceService.recoverIntelligentDevice(null);
         return ResultDataFactory.generateResultData(amount);
     }
 

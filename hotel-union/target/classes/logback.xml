@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+    <contextName>dlt-hotel</contextName>
+    <property name="LOG_HOME" value="/home/project/dlthotel/log" />
+    <appender name="console-log" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <encoder>
+            <pattern>%d{MM-dd HH:mm:ss.SSS} %p ip=[%X{clientIP}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="info-log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!--  <param name="MaxBackupIndex" value="20"/> -->
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss} %p ip=[%X{clientIP}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="error-log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <encoder>
+            <pattern>%d{MM-dd HH:mm:ss} %p ip=[%X{clientIP}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--<appender name="sql-log" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--<File>${LOG_HOME}/sql.log</File>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--<fileNamePattern>${LOG_HOME}/sql.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+        <!--</rollingPolicy>-->
+        <!--&lt;!&ndash;<filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+            <!--<level>debug</level>-->
+            <!--<OnMismatch>DENY</OnMismatch>-->
+            <!--<OnMatch>ACCEPT</OnMatch>-->
+        <!--</filter>&ndash;&gt;-->
+        <!--<encoder>-->
+            <!--<pattern>%d{HH:mm:ss} %p ip=[%X{clientIP}] - %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+    <!-- additivity="false" 其他地方不再显示-->
+    <!--<logger name="com.yl.dao" level="debug" additivity="true">-->
+        <!--<appender-ref ref="sql-log"/>-->
+    <!--</logger>-->
+
+    <root level="debug">
+        <appender-ref ref="console-log"/>
+        <appender-ref ref="info-log"/>
+        <appender-ref ref="error-log"/>
+    </root>
+
+</configuration>
+

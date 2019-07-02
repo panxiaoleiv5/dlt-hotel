@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "name": "task.pool",
+      "type": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "task.pool.core-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "task.pool.keep-alive-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "task.pool.max-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "task.pool.queue-capacity",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}
