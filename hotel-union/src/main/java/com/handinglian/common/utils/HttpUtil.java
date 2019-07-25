@@ -2,6 +2,8 @@ package com.handinglian.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.handinglian.common.exception.KkBizException;
+import com.handinglian.common.exception.YyBizException;
+import com.handinglian.yunyi.dto.StatusCodeDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -227,6 +229,84 @@ public class HttpUtil {
         } else {
             log.error("kongke "+key+" error:" + response);
             throw KkBizException.REQUEST_FAILURE;
+        }
+    }
+
+    /**
+     * 通过Get方式请求云翌接口
+     * @author pxl
+     * @param url 控客接口url
+     * @return java.lang.String
+     * @date 2019/6/3 11:17
+     */
+    public static String requestPostJsonYy(String url, Map<String, Object> params) throws IOException {
+        HttpClient httpClient = getHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setHeader("Content-Type", "application/json");
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("authorization", "YWRtaW46YWRtaW4yNDY6MjAxOTA3MDk=");
+
+        StringEntity entity = new StringEntity(JSON.toJSONString(params), HTTP.UTF_8);
+        httpPost.setEntity(entity);
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+
+            if (response != null) {
+                String result = EntityUtils.toString(response.getEntity(),"utf-8");
+                return result == null?"":result;
+            } else {
+                throw YyBizException.REQUEST_FAILURE;
+            }
+        } finally {
+            if (httpPost != null){
+                httpPost.releaseConnection();
+            }
+        }
+    }
+
+    /**
+     * 对response进行处理，获取目标对象(云翌)
+     * @author pxl
+     * @param response request请求的返回结果
+     * @param key 控客接口的key
+     * @param clazz 目标对象的类对象, 无目标对象传null
+     * @return T
+     * @date 2019/6/4 11:04
+     */
+    public static <T> T responseProcessYy(String response, String key, Class<T> clazz){
+        StatusCodeDto statusCodeDto = JSON.parseObject(response, StatusCodeDto.class);
+        if (statusCodeDto.getStatusCode().equals("000000")){
+            if (clazz != null){
+                return JSON.parseObject(response, clazz);
+            } else {
+                return null;
+            }
+        } else {
+            log.error("yunyi "+key+" error:" + response);
+            throw YyBizException.REQUEST_FAILURE;
+        }
+    }
+
+    /**
+     * 对response进行处理，获取目标List(云翌)
+     * @author pxl
+     * @param response request请求的返回结果
+     * @param key 控客接口的key
+     * @param clazz 目标对象的类对象, 无目标对象传null
+     * @return List<T>
+     * @date 2019/6/4 11:04
+     */
+    public static <T> List<T> responseListProcessYy(String response, String key, Class<T> clazz){
+        StatusCodeDto statusCodeDto = JSON.parseObject(response, StatusCodeDto.class);
+        if (statusCodeDto.getStatusCode().equals("000000")){
+            if (clazz != null){
+                return JSON.parseArray(response, clazz);
+            } else {
+                return null;
+            }
+        } else {
+            log.error("yunyi "+key+" error:" + response);
+            throw YyBizException.REQUEST_FAILURE;
         }
     }
 

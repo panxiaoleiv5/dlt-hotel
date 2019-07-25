@@ -13,6 +13,6 @@ public class PropertyUtil {
 
     public static String getKkApi(String key){
 
-        return getProperty("kk_request_api", key);
+        return getProperty("request_api", key);
     }
 }

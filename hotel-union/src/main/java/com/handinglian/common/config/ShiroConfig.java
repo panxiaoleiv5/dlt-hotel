@@ -1,7 +1,8 @@
 package com.handinglian.common.config;
 
 
-import com.handinglian.common.shiro.MyFormAuthenticationFilter;
+import com.handinglian.common.shiro.CustomFormAuthenticationFilter;
+import com.handinglian.common.shiro.CustomLogoutFilter;
 import com.handinglian.common.shiro.SystemAuthorizingRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -47,13 +48,14 @@ public class ShiroConfig {
         //获取filters
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
         //将自定义 的FormAuthenticationFilter注入shiroFilter中
-        filters.put("authc", new MyFormAuthenticationFilter());
+        filters.put("authc", new CustomFormAuthenticationFilter());
+        filters.put("logout", new CustomLogoutFilter());
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.html"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index.jsp");
+//        shiroFilterFactoryBean.setSuccessUrl("/index.jsp");
 
         // 拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();

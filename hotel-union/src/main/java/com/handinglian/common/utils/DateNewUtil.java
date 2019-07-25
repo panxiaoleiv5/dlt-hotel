@@ -16,7 +16,8 @@ import java.util.TimeZone;
  * @author Wanghk
  */
 public class DateNewUtil {
-    private Calendar calendar;
+    private Calendar cal;
+    private static Calendar calendar = Calendar.getInstance();
     private static final Locale locale = Locale.CHINA;
     private static final TimeZone timeZone = TimeZone.getTimeZone("GMT+08:00");
 
@@ -24,7 +25,7 @@ public class DateNewUtil {
      * 用当前日期时间构造
      */
     public DateNewUtil() {
-        calendar = Calendar.getInstance();
+        cal = Calendar.getInstance();
     }
 
     /**
@@ -35,8 +36,8 @@ public class DateNewUtil {
      */
     public DateNewUtil(Date date) {
         this();
-        calendar.clear();
-        calendar.setTime(date);
+        cal.clear();
+        cal.setTime(date);
     }
 
     /**
@@ -51,8 +52,8 @@ public class DateNewUtil {
         int year = Integer.parseInt(temp[0]);
         int month = Integer.parseInt(temp[1]);
         int day = Integer.parseInt(temp[2]);
-        calendar.clear();
-        calendar.set(year, month - 1, day);
+        cal.clear();
+        cal.set(year, month - 1, day);
     }
 
     /**
@@ -73,8 +74,8 @@ public class DateNewUtil {
         int hour = Integer.parseInt(temp2[0]);
         int minute = Integer.parseInt(temp2[1]);
         int second = Integer.parseInt(temp2[2]);
-        calendar.clear();
-        calendar.set(year, month - 1, day, hour, minute, second);
+        cal.clear();
+        cal.set(year, month - 1, day, hour, minute, second);
     }
 
     /**
@@ -441,7 +442,7 @@ public class DateNewUtil {
      * @return Calendar
      */
     public Calendar getCalendar() {
-        return calendar;
+        return cal;
     }
 
     /**
@@ -503,23 +504,23 @@ public class DateNewUtil {
     public String[][] getBeforeByDays(int n, DateFormat[] fs) {
         String[][] array = new String[n + 1][fs.length];
         for (int j = 0; j < fs.length; j++) {
-            array[0][j] = fs[j].format(this.calendar.getTime());
+            array[0][j] = fs[j].format(this.cal.getTime());
         }
         for (int i = 0; i < n; i++) {
             // 当前月份等于1时
             if (this.getMonthInt() == 1 && this.getDayOfMonth() == 1) {
                 // 年份往前滚动1
-                calendar.roll(Calendar.YEAR, false);
+                cal.roll(Calendar.YEAR, false);
             }
             if (getDayOfMonth() == 1) {
                 // 月份往前滚动1
-                calendar.roll(Calendar.MONTH, false);
-                calendar.set(Calendar.DATE, this.getMaxDaysOfMonth());
+                cal.roll(Calendar.MONTH, false);
+                cal.set(Calendar.DATE, this.getMaxDaysOfMonth());
             } else {
-                calendar.roll(Calendar.DATE, false);
+                cal.roll(Calendar.DATE, false);
             }
             for (int j = 0; j < fs.length; j++) {
-                array[i + 1][j] = fs[j].format(this.calendar.getTime());
+                array[i + 1][j] = fs[j].format(this.cal.getTime());
             }
         }
         return array;
@@ -584,19 +585,19 @@ public class DateNewUtil {
     public String[][] getBeforeByMonths(int n, DateFormat[] fs) {
         String[][] array = new String[n + 1][fs.length];
         for (int j = 0; j < fs.length; j++) {
-            array[0][j] = fs[j].format(this.calendar.getTime());
+            array[0][j] = fs[j].format(this.cal.getTime());
         }
         for (int i = 0; i < n; i++) {
             // 当前月份等于1时
             if (this.getMonthInt() == 1) {
                 // 年份往前滚动1
-                calendar.roll(Calendar.YEAR, false);
-                calendar.set(Calendar.MONTH, 11);
+                cal.roll(Calendar.YEAR, false);
+                cal.set(Calendar.MONTH, 11);
             } else {
-                calendar.roll(Calendar.MONTH, false);
+                cal.roll(Calendar.MONTH, false);
             }
             for (int j = 0; j < fs.length; j++) {
-                array[i + 1][j] = fs[j].format(this.calendar.getTime());
+                array[i + 1][j] = fs[j].format(this.cal.getTime());
             }
         }
         return array;
@@ -661,17 +662,17 @@ public class DateNewUtil {
     public String[][] getAfterByDays(int n, DateFormat[] fs) {
         String[][] array = new String[n + 1][fs.length];
         for (int j = 0; j < fs.length; j++) {
-            array[0][j] = fs[j].format(this.calendar.getTime());
+            array[0][j] = fs[j].format(this.cal.getTime());
         }
         for (int i = 0; i < n; i++) {
             if (this.getDayOfMonth() == this.getMaxDaysOfMonth()) {
-                calendar.add(Calendar.MONTH, 1);
-                calendar.set(Calendar.DATE, 1);
+                cal.add(Calendar.MONTH, 1);
+                cal.set(Calendar.DATE, 1);
             } else {
-                calendar.roll(Calendar.DATE, 1);
+                cal.roll(Calendar.DATE, 1);
             }
             for (int j = 0; j < fs.length; j++) {
-                array[i + 1][j] = fs[j].format(this.calendar.getTime());
+                array[i + 1][j] = fs[j].format(this.cal.getTime());
             }
         }
         return array;
@@ -736,12 +737,12 @@ public class DateNewUtil {
     public String[][] getAfterByMonths(int n, DateFormat[] fs) {
         String[][] array = new String[n + 1][fs.length];
         for (int j = 0; j < fs.length; j++) {
-            array[0][j] = fs[j].format(this.calendar.getTime());
+            array[0][j] = fs[j].format(this.cal.getTime());
         }
         for (int i = 0; i < n; i++) {
-            calendar.add(Calendar.MONTH, 1);
+            cal.add(Calendar.MONTH, 1);
             for (int j = 0; j < fs.length; j++) {
-                array[i + 1][j] = fs[j].format(this.calendar.getTime());
+                array[i + 1][j] = fs[j].format(this.cal.getTime());
             }
         }
         return array;
@@ -752,9 +753,10 @@ public class DateNewUtil {
      *
      * @return yyyy-MM-dd
      */
-    public String getDate() {
+    public static String getDate(Date date) {
+        calendar.setTime(date);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(this.calendar.getTime());
+        return df.format(calendar.getTime());
     }
 
     /**
@@ -764,7 +766,7 @@ public class DateNewUtil {
      */
     public String getDate2() {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
@@ -774,7 +776,7 @@ public class DateNewUtil {
      */
     public String getTime() {
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
@@ -784,7 +786,7 @@ public class DateNewUtil {
      */
     public String getTime2() {
         SimpleDateFormat df = new SimpleDateFormat("HHmmss");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
@@ -794,7 +796,7 @@ public class DateNewUtil {
      */
     public String getTime3() {
         SimpleDateFormat df = new SimpleDateFormat("HHmmss.SSS");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
@@ -804,7 +806,7 @@ public class DateNewUtil {
      */
     public String getTime4() {
         SimpleDateFormat df = new SimpleDateFormat("HHmmssSSS");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
@@ -814,7 +816,7 @@ public class DateNewUtil {
      */
     public String getTime5() {
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
@@ -824,121 +826,121 @@ public class DateNewUtil {
      */
     public String getDateTime() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return df.format(this.calendar.getTime());
+        return df.format(this.cal.getTime());
     }
 
     /**
      * @return 当前月份中最大的天数
      */
     public int getMaxDaysOfMonth() {
-        return calendar.getActualMaximum(Calendar.DATE);
+        return cal.getActualMaximum(Calendar.DATE);
     }
 
     /**
      * @return 传入月份中最大的天数
      */
     public static int getMaxDaysOfMonth(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     /**
      * @return 当前月份
      */
     public int getMonthInt() {
-        return 1 + calendar.get(Calendar.MONDAY);
+        return 1 + cal.get(Calendar.MONDAY);
     }
 
     /**
      * @return 当前年份
      */
     public int getYear() {
-        return calendar.get(Calendar.YEAR);
+        return cal.get(Calendar.YEAR);
     }
 
     /**
      * @return 当前月份中的天数
      */
     public int getDayOfMonth() {
-        return calendar.get(Calendar.DAY_OF_MONTH);
+        return cal.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
      * @return 当前年份中的天数
      */
     public int getDayofYear() {
-        return calendar.get(Calendar.DAY_OF_YEAR);
+        return cal.get(Calendar.DAY_OF_YEAR);
     }
 
     /**
      * @return 当前年份中的星期数
      */
     public int getWeekOfYear() {
-        return calendar.get(Calendar.WEEK_OF_YEAR);
+        return cal.get(Calendar.WEEK_OF_YEAR);
     }
 
     /**
      * @return 当前月份中的星期数
      */
     public int getWeekOfMonth() {
-        return calendar.get(Calendar.WEEK_OF_MONTH);
+        return cal.get(Calendar.WEEK_OF_MONTH);
     }
 
     /**
      * @return 当前星期中的天数
      */
     public int getDayOfWeek() {
-        return calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        return cal.get(Calendar.DAY_OF_WEEK) - 1;
     }
 
     /**
      * @return 当前时段
      */
     public int getHour() {
-        return calendar.get(Calendar.HOUR_OF_DAY);
+        return cal.get(Calendar.HOUR_OF_DAY);
     }
 
     /**
      * @return 当前分钟段
      */
     public int getMinute() {
-        return calendar.get(Calendar.MINUTE);
+        return cal.get(Calendar.MINUTE);
     }
 
     /**
      * @return 当前秒钟段
      */
     public int getSecond() {
-        return calendar.get(Calendar.SECOND);
+        return cal.get(Calendar.SECOND);
     }
 
     /**
      * @return ERA
      */
     public int getEra() {
-        return calendar.get(Calendar.ERA);
+        return cal.get(Calendar.ERA);
     }
 
     /**
      * @return ZONE_OFFSET
      */
     public int getZoneOffset() {
-        return calendar.get(Calendar.ZONE_OFFSET) / (60 * 60 * 1000);
+        return cal.get(Calendar.ZONE_OFFSET) / (60 * 60 * 1000);
     }
 
     /**
      * @return DST_OFFSET
      */
     public int getDstOffset() {
-        return calendar.get(Calendar.DST_OFFSET) / (60 * 60 * 1000);
+        return cal.get(Calendar.DST_OFFSET) / (60 * 60 * 1000);
     }
 
     /**
      * @return AM_PM
      */
     public int getAMPM() {
-        return calendar.get(Calendar.AM_PM);
+        return cal.get(Calendar.AM_PM);
     }
 
     /**
@@ -947,33 +949,29 @@ public class DateNewUtil {
      */
     public static int getDayOfMonth(String dealDate) {
         Date date = parseDate(dealDate, "yyyy-MM");
-        Calendar calendar =Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public static Date getFirstDayOfYear(Date date){
-        Calendar cal =Calendar.getInstance();
-        cal.setTime(date);
+        calendar.setTime(date);
         //获取本月第一天
-        cal.set(Calendar.DAY_OF_YEAR, 1);
-        return cal.getTime();
+        calendar.set(Calendar.DAY_OF_YEAR, 1);
+        return calendar.getTime();
     }
 
     public static Date getFirstDayOfMonth(Date date){
-        Calendar cal =Calendar.getInstance();
-        cal.setTime(date);
+        calendar.setTime(date);
         //获取本月第一天
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        return cal.getTime();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
     }
 
     public static Date getFirstDayOfWeek(Date date){
-        Calendar cal =Calendar.getInstance();
-        cal.setTime(date);
+        calendar.setTime(date);
         //获取本周一的日期
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        return cal.getTime();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return calendar.getTime();
     }
 
     public static Date getFirstDayOfLastWeek(Date date){//获取下周第一天
@@ -981,10 +979,9 @@ public class DateNewUtil {
     }
 
     public static Date addDays(Date date, Integer days){
-        Calendar cal =Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DATE, days);
-        return cal.getTime();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, days);
+        return calendar.getTime();
     }
     /**
      *
@@ -1066,7 +1063,6 @@ public class DateNewUtil {
     * @return int
     **/
     public static int getWeek(Date date){
-        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_WEEK)-1;
     }
@@ -1079,13 +1075,11 @@ public class DateNewUtil {
     * @return int
     **/
     public static int getYear(Date date){
-        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.YEAR);
     }
 
     public static int getMonth(Date date){
-        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.MONTH)+1;
     }

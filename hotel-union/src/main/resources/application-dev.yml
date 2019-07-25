@@ -48,3 +48,9 @@ spring:
 mybatis-plus:
   mapperLocations: classpath*:com/handinglian/*/mapperxml/*.xml
   typeAliasesPackage: com.handinglian.*.entity
+
+file:
+  location: D:/file/
+
+download:
+  url: /download/file/

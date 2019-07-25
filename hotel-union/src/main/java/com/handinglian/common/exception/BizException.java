@@ -43,6 +43,11 @@ public class BizException extends RuntimeException {
     public static final BizException DB_GET_SEQ_NEXT_VALUE_ERROR = new BizException(90040007, "获取序列出错");
 
     /**
+     * 连接超时
+     */
+    public final static BizException CONNECTION_TIMED_OUT = new YyBizException(90040008, "连接超时");
+
+    /**
      * 异常信息
      */
     protected String msg;

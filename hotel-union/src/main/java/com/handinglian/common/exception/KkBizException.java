@@ -7,19 +7,14 @@ public class KkBizException extends BizException {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 连接超时
-     */
-    public final static KkBizException CONNECTION_TIMED_OUT = new KkBizException(10011001, "连接超时");
-
-    /**
      * 返回控客数据为空
      */
-    public final static KkBizException DATA_IS_NULL = new KkBizException(10011002, "返回控客数据为空");
+    public final static KkBizException DATA_IS_NULL = new KkBizException(10011001, "返回控客数据为空");
 
     /**
      * 请求控客接口失败
      */
-    public final static KkBizException REQUEST_FAILURE = new KkBizException(10011003, "请求控客接口失败");
+    public final static KkBizException REQUEST_FAILURE = new KkBizException(10011002, "请求控客接口失败");
 
     public KkBizException() {
     }

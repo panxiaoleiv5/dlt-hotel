@@ -34,4 +34,8 @@ public interface ExtensionMapper {
     Extension findOneByExtensionNo(@Param("extensionNo") String extensionNo);
 
     int updateValidByExtensionNo(@Param("updatedValid") Integer updatedValid, @Param("extensionNo") String extensionNo);
+
+    int updateSetMealIdByExtensionNo(@Param("updatedSetMealId")Integer updatedSetMealId,@Param("extensionNo")String extensionNo);
+
+    int updateSetMealIdBySetMealId(@Param("newSetMealId")Integer newSetMealId,@Param("oldSetMealId")Integer oldSetMealId);
 }

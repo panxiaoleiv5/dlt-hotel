@@ -17,6 +17,11 @@ public class Extension implements Serializable {
     private String extensionNo;
 
     /**
+     * 套餐id
+     */
+    private Integer setMealId;
+
+    /**
      * 房间号
      */
     private String roomNo;
@@ -27,9 +32,19 @@ public class Extension implements Serializable {
     private String passsword;
 
     /**
-     * 随机数
+     * 注册ip
      */
-    private String randomCode;
+    private String registerIp;
+
+    /**
+     * 在线状态 1在线 0离线
+     */
+    private Integer onlineState;
+
+    /**
+     * 录音状态 1开启 0关闭
+     */
+    private Integer recordState;
 
     /**
      * 创建时间

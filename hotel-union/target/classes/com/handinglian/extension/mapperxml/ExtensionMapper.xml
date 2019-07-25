@@ -5,17 +5,20 @@
     <!--@mbg.generated-->
     <id column="extension_id" jdbcType="INTEGER" property="extensionId" />
     <result column="extension_no" jdbcType="VARCHAR" property="extensionNo" />
+    <result column="set_meal_id" jdbcType="INTEGER" property="setMealId" />
     <result column="room_no" jdbcType="VARCHAR" property="roomNo" />
     <result column="passsword" jdbcType="VARCHAR" property="passsword" />
-    <result column="random_code" jdbcType="VARCHAR" property="randomCode" />
+    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="online_state" jdbcType="INTEGER" property="onlineState" />
+    <result column="record_state" jdbcType="INTEGER" property="recordState" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="valid" jdbcType="TINYINT" property="valid" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    extension_id, extension_no, room_no, passsword, random_code, create_time, update_time, 
-    `valid`
+    extension_id, extension_no, set_meal_id, room_no, passsword, register_ip, online_state, 
+    record_state, create_time, update_time, `valid`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -31,11 +34,13 @@
   </delete>
   <insert id="insert" keyColumn="extension_id" keyProperty="extensionId" parameterType="com.handinglian.extension.entity.Extension" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into extension (extension_no, room_no, passsword, 
-      random_code, create_time, update_time, 
+    insert into extension (extension_no, set_meal_id, room_no, 
+      passsword, register_ip, online_state, 
+      record_state, create_time, update_time, 
       `valid`)
-    values (#{extensionNo,jdbcType=VARCHAR}, #{roomNo,jdbcType=VARCHAR}, #{passsword,jdbcType=VARCHAR}, 
-      #{randomCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{extensionNo,jdbcType=VARCHAR}, #{setMealId,jdbcType=INTEGER}, #{roomNo,jdbcType=VARCHAR}, 
+      #{passsword,jdbcType=VARCHAR}, #{registerIp,jdbcType=VARCHAR}, #{onlineState,jdbcType=INTEGER}, 
+      #{recordState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{valid,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" keyColumn="extension_id" keyProperty="extensionId" parameterType="com.handinglian.extension.entity.Extension" useGeneratedKeys="true">
@@ -45,14 +50,23 @@
       <if test="extensionNo != null and extensionNo != ''">
         extension_no,
       </if>
+      <if test="setMealId != null">
+        set_meal_id,
+      </if>
       <if test="roomNo != null and roomNo != ''">
         room_no,
       </if>
       <if test="passsword != null and passsword != ''">
         passsword,
       </if>
-      <if test="randomCode != null and randomCode != ''">
-        random_code,
+      <if test="registerIp != null and registerIp != ''">
+        register_ip,
+      </if>
+      <if test="onlineState != null">
+        online_state,
+      </if>
+      <if test="recordState != null">
+        record_state,
       </if>
       <if test="createTime != null">
         create_time,
@@ -68,14 +82,23 @@
       <if test="extensionNo != null and extensionNo != ''">
         #{extensionNo,jdbcType=VARCHAR},
       </if>
+      <if test="setMealId != null">
+        #{setMealId,jdbcType=INTEGER},
+      </if>
       <if test="roomNo != null and roomNo != ''">
         #{roomNo,jdbcType=VARCHAR},
       </if>
       <if test="passsword != null and passsword != ''">
         #{passsword,jdbcType=VARCHAR},
       </if>
-      <if test="randomCode != null and randomCode != ''">
-        #{randomCode,jdbcType=VARCHAR},
+      <if test="registerIp != null and registerIp != ''">
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineState != null">
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="recordState != null">
+        #{recordState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -95,14 +118,23 @@
       <if test="extensionNo != null and extensionNo != ''">
         extension_no = #{extensionNo,jdbcType=VARCHAR},
       </if>
+      <if test="setMealId != null">
+        set_meal_id = #{setMealId,jdbcType=INTEGER},
+      </if>
       <if test="roomNo != null and roomNo != ''">
         room_no = #{roomNo,jdbcType=VARCHAR},
       </if>
       <if test="passsword != null and passsword != ''">
         passsword = #{passsword,jdbcType=VARCHAR},
       </if>
-      <if test="randomCode != null and randomCode != ''">
-        random_code = #{randomCode,jdbcType=VARCHAR},
+      <if test="registerIp != null and registerIp != ''">
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineState != null">
+        online_state = #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="recordState != null">
+        record_state = #{recordState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -120,9 +152,12 @@
     <!--@mbg.generated-->
     update extension
     set extension_no = #{extensionNo,jdbcType=VARCHAR},
+      set_meal_id = #{setMealId,jdbcType=INTEGER},
       room_no = #{roomNo,jdbcType=VARCHAR},
       passsword = #{passsword,jdbcType=VARCHAR},
-      random_code = #{randomCode,jdbcType=VARCHAR},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      online_state = #{onlineState,jdbcType=INTEGER},
+      record_state = #{recordState,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       `valid` = #{valid,jdbcType=TINYINT}
@@ -137,6 +172,11 @@
           when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.extensionNo,jdbcType=VARCHAR}
         </foreach>
       </trim>
+      <trim prefix="set_meal_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.setMealId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
       <trim prefix="room_no = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
           when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.roomNo,jdbcType=VARCHAR}
@@ -147,9 +187,19 @@
           when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.passsword,jdbcType=VARCHAR}
         </foreach>
       </trim>
-      <trim prefix="random_code = case" suffix="end,">
+      <trim prefix="register_ip = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.randomCode,jdbcType=VARCHAR}
+          when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.registerIp,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="online_state = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.onlineState,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="record_state = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when extension_id = #{item.extensionId,jdbcType=INTEGER} then #{item.recordState,jdbcType=INTEGER}
         </foreach>
       </trim>
       <trim prefix="create_time = case" suffix="end,">
@@ -176,12 +226,13 @@
   <insert id="batchInsert" keyColumn="extension_id" keyProperty="extensionId" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into extension
-    (extension_no, room_no, passsword, random_code, create_time, update_time, `valid`
-      )
+    (extension_no, set_meal_id, room_no, passsword, register_ip, online_state, record_state, 
+      create_time, update_time, `valid`)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.extensionNo,jdbcType=VARCHAR}, #{item.roomNo,jdbcType=VARCHAR}, #{item.passsword,jdbcType=VARCHAR}, 
-        #{item.randomCode,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+      (#{item.extensionNo,jdbcType=VARCHAR}, #{item.setMealId,jdbcType=INTEGER}, #{item.roomNo,jdbcType=VARCHAR}, 
+        #{item.passsword,jdbcType=VARCHAR}, #{item.registerIp,jdbcType=VARCHAR}, #{item.onlineState,jdbcType=INTEGER}, 
+        #{item.recordState,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
         #{item.valid,jdbcType=TINYINT})
     </foreach>
   </insert>
@@ -193,9 +244,12 @@
         extension_id,
       </if>
       extension_no,
+      set_meal_id,
       room_no,
       passsword,
-      random_code,
+      register_ip,
+      online_state,
+      record_state,
       create_time,
       update_time,
       `valid`,
@@ -206,9 +260,12 @@
         #{extensionId,jdbcType=INTEGER},
       </if>
       #{extensionNo,jdbcType=VARCHAR},
+      #{setMealId,jdbcType=INTEGER},
       #{roomNo,jdbcType=VARCHAR},
       #{passsword,jdbcType=VARCHAR},
-      #{randomCode,jdbcType=VARCHAR},
+      #{registerIp,jdbcType=VARCHAR},
+      #{onlineState,jdbcType=INTEGER},
+      #{recordState,jdbcType=INTEGER},
       #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP},
       #{valid,jdbcType=TINYINT},
@@ -219,9 +276,12 @@
         extension_id = #{extensionId,jdbcType=INTEGER},
       </if>
       extension_no = #{extensionNo,jdbcType=VARCHAR},
+      set_meal_id = #{setMealId,jdbcType=INTEGER},
       room_no = #{roomNo,jdbcType=VARCHAR},
       passsword = #{passsword,jdbcType=VARCHAR},
-      random_code = #{randomCode,jdbcType=VARCHAR},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      online_state = #{onlineState,jdbcType=INTEGER},
+      record_state = #{recordState,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       `valid` = #{valid,jdbcType=TINYINT},
@@ -237,14 +297,23 @@
       <if test="extensionNo != null">
         extension_no,
       </if>
+      <if test="setMealId != null">
+        set_meal_id,
+      </if>
       <if test="roomNo != null">
         room_no,
       </if>
       <if test="passsword != null">
         passsword,
       </if>
-      <if test="randomCode != null">
-        random_code,
+      <if test="registerIp != null">
+        register_ip,
+      </if>
+      <if test="onlineState != null">
+        online_state,
+      </if>
+      <if test="recordState != null">
+        record_state,
       </if>
       <if test="createTime != null">
         create_time,
@@ -264,14 +333,23 @@
       <if test="extensionNo != null">
         #{extensionNo,jdbcType=VARCHAR},
       </if>
+      <if test="setMealId != null">
+        #{setMealId,jdbcType=INTEGER},
+      </if>
       <if test="roomNo != null">
         #{roomNo,jdbcType=VARCHAR},
       </if>
       <if test="passsword != null">
         #{passsword,jdbcType=VARCHAR},
       </if>
-      <if test="randomCode != null">
-        #{randomCode,jdbcType=VARCHAR},
+      <if test="registerIp != null">
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineState != null">
+        #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="recordState != null">
+        #{recordState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -291,14 +369,23 @@
       <if test="extensionNo != null">
         extension_no = #{extensionNo,jdbcType=VARCHAR},
       </if>
+      <if test="setMealId != null">
+        set_meal_id = #{setMealId,jdbcType=INTEGER},
+      </if>
       <if test="roomNo != null">
         room_no = #{roomNo,jdbcType=VARCHAR},
       </if>
       <if test="passsword != null">
         passsword = #{passsword,jdbcType=VARCHAR},
       </if>
-      <if test="randomCode != null">
-        random_code = #{randomCode,jdbcType=VARCHAR},
+      <if test="registerIp != null">
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineState != null">
+        online_state = #{onlineState,jdbcType=INTEGER},
+      </if>
+      <if test="recordState != null">
+        record_state = #{recordState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -339,5 +426,19 @@
     update extension
     set `valid`=#{updatedValid,jdbcType=INTEGER}
     where extension_no=#{extensionNo,jdbcType=VARCHAR}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-15-->
+  <update id="updateSetMealIdByExtensionNo">
+    update extension
+    set set_meal_id=#{updatedSetMealId,jdbcType=INTEGER}
+    where extension_no=#{extensionNo,jdbcType=VARCHAR}
+  </update>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-15-->
+  <update id="updateSetMealIdBySetMealId">
+    update extension
+    set set_meal_id=#{newSetMealId,jdbcType=INTEGER}
+    where set_meal_id=#{oldSetMealId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @create: 2019/6/12 13:52
  */
 @Data
-@ConfigurationProperties(prefix = "task.pool")
+@ConfigurationProperties(prefix = "schedule.pool")
 public class TaskThreadPoolConfig {
     private int corePoolSize;
 
