@@ -12,7 +12,7 @@ public interface ContextualModelService {
 
     int updateContextualModelName(Integer contextualModelId, String modelName);
 
-    int deleteContextualModel(Integer contextualModelId);
+    int deleteContextualModelBatch(List<Integer> contextualModelIds);
 
     int addIntelligentArticle(String kkDeviceNames, Integer contextualModelId);
 

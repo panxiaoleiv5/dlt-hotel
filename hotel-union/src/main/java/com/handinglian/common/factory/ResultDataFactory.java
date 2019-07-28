@@ -7,7 +7,7 @@ public class ResultDataFactory {
 
     public static ResultData generateResultData(Integer amount){
         if (amount > 0){
-            return new ResultData(Constants.SUCCESS, Constants.SUCCESS_CONTENT);
+            return new ResultData(Constants.SUCCESS, Constants.SUCCESS_CONTENT, amount);
         } else {
             return new ResultData(Constants.ERROR, Constants.ERROR_CONTENT);
         }

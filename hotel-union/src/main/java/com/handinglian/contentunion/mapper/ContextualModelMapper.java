@@ -1,4 +1,5 @@
 package com.handinglian.contentunion.mapper;
+import java.util.Collection;
 
 import com.handinglian.contentunion.entity.ContextualModel;
 import java.util.List;
@@ -28,4 +29,8 @@ public interface ContextualModelMapper {
     int batchInsert(@Param("list") List<ContextualModel> list);
 
     List<ContextualModel> find();
+
+    int deleteByContextualModelIdIn(@Param("contextualModelIdCollection")Collection<Integer> contextualModelIdCollection);
+
+
 }

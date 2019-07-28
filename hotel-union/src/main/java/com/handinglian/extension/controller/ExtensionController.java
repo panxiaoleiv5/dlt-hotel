@@ -67,11 +67,8 @@ public class ExtensionController {
      * 删除分机
      */
     @DeleteMapping("/deleteExtension")
-    public ResultData deleteExtension(Integer extensionId){
-        Extension extension = new Extension();
-        extension.setExtensionId(extensionId);
-        extension.setValid(ValidEnum.INVALID.getKey());
-        int amount = extensionService.updateExtension(extension);
+    public ResultData deleteExtension(Integer extensionId) throws IOException {
+        int amount = extensionService.deleteExtension(extensionId);
 
         return ResultDataFactory.generateResultData(amount);
 

@@ -4,12 +4,15 @@ import com.apidoc.annotation.Api;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
+import com.handinglian.common.utils.StringUtil;
 import com.handinglian.contentunion.dto.ContextualModelDto;
 import com.handinglian.contentunion.entity.ContextualModel;
 import com.handinglian.contentunion.service.ContextualModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api("情景模式")
 @Slf4j
@@ -24,8 +27,8 @@ public class ContextualModelController {
      */
     @PostMapping(value = "/createContextualModel")
     public ResultData createCentralHost(@RequestBody ContextualModelDto contextualModelDto) {
-        int amount = contextualModelService.createContextualModel(contextualModelDto.getModelName());
-        return ResultDataFactory.generateResultData(amount);
+        int id = contextualModelService.createContextualModel(contextualModelDto.getModelName());
+        return ResultDataFactory.generateSuccessResultData(id);
     }
 
     /**
@@ -50,8 +53,9 @@ public class ContextualModelController {
      * 删除情景模式
      */
     @DeleteMapping(value = "/deleteContextualModel")
-    public ResultData deleteContextualModel(Integer contextualModelId) {
-        int amount = contextualModelService.deleteContextualModel(contextualModelId);
+    public ResultData deleteContextualModel(String contextualModelIdStr) {
+        List<Integer> contextualModelIds = StringUtil.stringToIntegerList(contextualModelIdStr);
+        int amount = contextualModelService.deleteContextualModelBatch(contextualModelIds);
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -77,7 +81,7 @@ public class ContextualModelController {
      * 获取智能物品列表
      */
     @GetMapping(value = "/inquireIntelligentArticlePageList")
-    public ResultData<PageInfo> inquireIntelligentArticlePageList(Integer page, Integer pageSize, String name) {
+    public ResultData<PageInfo> inquireIntelligentArticlePageList(Integer page, Integer pageSize) {
         PageInfo<String> pageInfo = contextualModelService.inquireIntelligentArticlePageList(page, pageSize);
         return ResultDataFactory.generateSuccessResultData(pageInfo);
     }

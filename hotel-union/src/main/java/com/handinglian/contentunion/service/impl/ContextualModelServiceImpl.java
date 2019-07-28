@@ -29,8 +29,9 @@ import java.util.List;
         contextualModel.setModelName(modelName);
         contextualModel.setCreateTime(now);
         contextualModel.setUpdateTime(now);
+        contextualModelMapper.insertSelective(contextualModel);
 
-        return contextualModelMapper.insertSelective(contextualModel);
+        return contextualModel.getContextualModelId();
     }
 
     @Override
@@ -54,8 +55,8 @@ import java.util.List;
 
     @Override
     @Transactional
-    public int deleteContextualModel(Integer contextualModelId) {
-        return contextualModelMapper.deleteByPrimaryKey(contextualModelId);
+    public int deleteContextualModelBatch(List<Integer> contextualModelIds) {
+        return contextualModelMapper.deleteByContextualModelIdIn(contextualModelIds);
     }
 
     @Override

@@ -75,7 +75,7 @@ public class YunyiApiServiceImpl implements YunyiApiService {
         String url = PropertyUtil.getKkApi(YyConstants.DELETE_EXTENSION);
         Map<String, Object> params = new HashMap<>();
         extensionNo = extensionNo == null?"":extensionNo;
-        params.put("exten", extensionNo);
+        params.put("exten_name", extensionNo);
         String response = HttpUtil.requestPostJsonYy(url, params);
         HttpUtil.responseProcessYy(response, YyConstants.DELETE_EXTENSION, null);
     }
