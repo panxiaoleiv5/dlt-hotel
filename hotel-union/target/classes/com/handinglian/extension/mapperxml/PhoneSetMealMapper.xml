@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.extension.mapper.PhoneSetMealMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.extension.entity.PhoneSetMeal">
+    <!--@mbg.generated-->
+    <id column="phone_set_meal_id" jdbcType="INTEGER" property="phoneSetMealId" />
+    <result column="set_meal_name" jdbcType="VARCHAR" property="setMealName" />
+    <result column="area_code_id" jdbcType="INTEGER" property="areaCodeId" />
+    <result column="is_default" jdbcType="INTEGER" property="isDefault" />
+    <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    phone_set_meal_id, set_meal_name, area_code_id, is_default, `valid`, create_date, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from phone_set_meal
+    where phone_set_meal_id = #{phoneSetMealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from phone_set_meal
+    where phone_set_meal_id = #{phoneSetMealId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="phone_set_meal_id" keyProperty="phoneSetMealId" parameterType="com.handinglian.extension.entity.PhoneSetMeal" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into phone_set_meal (set_meal_name, area_code_id, is_default, 
+      `valid`, create_date, update_time
+      )
+    values (#{setMealName,jdbcType=VARCHAR}, #{areaCodeId,jdbcType=INTEGER}, #{isDefault,jdbcType=INTEGER}, 
+      #{valid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="phone_set_meal_id" keyProperty="phoneSetMealId" parameterType="com.handinglian.extension.entity.PhoneSetMeal" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into phone_set_meal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="setMealName != null and setMealName != ''">
+        set_meal_name,
+      </if>
+      <if test="areaCodeId != null">
+        area_code_id,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="setMealName != null and setMealName != ''">
+        #{setMealName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCodeId != null">
+        #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.extension.entity.PhoneSetMeal">
+    <!--@mbg.generated-->
+    update phone_set_meal
+    <set>
+      <if test="setMealName != null and setMealName != ''">
+        set_meal_name = #{setMealName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCodeId != null">
+        area_code_id = #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        `valid` = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where phone_set_meal_id = #{phoneSetMealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.extension.entity.PhoneSetMeal">
+    <!--@mbg.generated-->
+    update phone_set_meal
+    set set_meal_name = #{setMealName,jdbcType=VARCHAR},
+      area_code_id = #{areaCodeId,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      `valid` = #{valid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where phone_set_meal_id = #{phoneSetMealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update phone_set_meal
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="set_meal_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when phone_set_meal_id = #{item.phoneSetMealId,jdbcType=INTEGER} then #{item.setMealName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="area_code_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when phone_set_meal_id = #{item.phoneSetMealId,jdbcType=INTEGER} then #{item.areaCodeId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="is_default = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when phone_set_meal_id = #{item.phoneSetMealId,jdbcType=INTEGER} then #{item.isDefault,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`valid` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when phone_set_meal_id = #{item.phoneSetMealId,jdbcType=INTEGER} then #{item.valid,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="create_date = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when phone_set_meal_id = #{item.phoneSetMealId,jdbcType=INTEGER} then #{item.createDate,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when phone_set_meal_id = #{item.phoneSetMealId,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where phone_set_meal_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.phoneSetMealId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="phone_set_meal_id" keyProperty="phoneSetMealId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into phone_set_meal
+    (set_meal_name, area_code_id, is_default, `valid`, create_date, update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.setMealName,jdbcType=VARCHAR}, #{item.areaCodeId,jdbcType=INTEGER}, #{item.isDefault,jdbcType=INTEGER}, 
+        #{item.valid,jdbcType=INTEGER}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="phone_set_meal_id" keyProperty="phoneSetMealId" parameterType="com.handinglian.extension.entity.PhoneSetMeal" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into phone_set_meal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phoneSetMealId != null">
+        phone_set_meal_id,
+      </if>
+      set_meal_name,
+      area_code_id,
+      is_default,
+      `valid`,
+      create_date,
+      update_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phoneSetMealId != null">
+        #{phoneSetMealId,jdbcType=INTEGER},
+      </if>
+      #{setMealName,jdbcType=VARCHAR},
+      #{areaCodeId,jdbcType=INTEGER},
+      #{isDefault,jdbcType=INTEGER},
+      #{valid,jdbcType=INTEGER},
+      #{createDate,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="phoneSetMealId != null">
+        phone_set_meal_id = #{phoneSetMealId,jdbcType=INTEGER},
+      </if>
+      set_meal_name = #{setMealName,jdbcType=VARCHAR},
+      area_code_id = #{areaCodeId,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      `valid` = #{valid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="phone_set_meal_id" keyProperty="phoneSetMealId" parameterType="com.handinglian.extension.entity.PhoneSetMeal" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into phone_set_meal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phoneSetMealId != null">
+        phone_set_meal_id,
+      </if>
+      <if test="setMealName != null">
+        set_meal_name,
+      </if>
+      <if test="areaCodeId != null">
+        area_code_id,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="valid != null">
+        `valid`,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phoneSetMealId != null">
+        #{phoneSetMealId,jdbcType=INTEGER},
+      </if>
+      <if test="setMealName != null">
+        #{setMealName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCodeId != null">
+        #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="phoneSetMealId != null">
+        phone_set_meal_id = #{phoneSetMealId,jdbcType=INTEGER},
+      </if>
+      <if test="setMealName != null">
+        set_meal_name = #{setMealName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCodeId != null">
+        area_code_id = #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        `valid` = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-15-->
+  <select id="findDefaultOne" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from phone_set_meal
+        where is_default=1 and valid = 1
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-15-->
+  <select id="findInvalidOneBySetMealName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from phone_set_meal
+    where set_meal_name=#{setMealName,jdbcType=VARCHAR} and valid = 0
+  </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-15-->
+  <select id="find" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from phone_set_meal where valid = 1
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-15-->
+  <select id="findOneBySetMealName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from phone_set_meal
+    where set_meal_name=#{setMealName,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.extension.mapper.CallRecordMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.extension.entity.CallRecord">
+    <!--@mbg.generated-->
+    <id column="call_record_id" jdbcType="INTEGER" property="callRecordId" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="caller_no" jdbcType="VARCHAR" property="callerNo" />
+    <result column="called_no" jdbcType="VARCHAR" property="calledNo" />
+    <result column="duration_time" jdbcType="VARCHAR" property="durationTime" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+    <result column="phone_status" jdbcType="INTEGER" property="phoneStatus" />
+    <result column="record_file" jdbcType="VARCHAR" property="recordFile" />
+    <result column="reqid" jdbcType="VARCHAR" property="reqid" />
+    <result column="call_cost" jdbcType="DECIMAL" property="callCost" />
+    <result column="file_uuid" jdbcType="VARCHAR" property="fileUuid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    call_record_id, start_time, caller_no, called_no, duration_time, record_status, phone_status, 
+    record_file, reqid, call_cost, file_uuid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from call_record
+    where call_record_id = #{callRecordId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from call_record
+    where call_record_id = #{callRecordId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into call_record (start_time, caller_no, called_no, 
+      duration_time, record_status, phone_status, 
+      record_file, reqid, call_cost, 
+      file_uuid)
+    values (#{startTime,jdbcType=TIMESTAMP}, #{callerNo,jdbcType=VARCHAR}, #{calledNo,jdbcType=VARCHAR}, 
+      #{durationTime,jdbcType=VARCHAR}, #{recordStatus,jdbcType=INTEGER}, #{phoneStatus,jdbcType=INTEGER}, 
+      #{recordFile,jdbcType=VARCHAR}, #{reqid,jdbcType=VARCHAR}, #{callCost,jdbcType=DECIMAL}, 
+      #{fileUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into call_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="callerNo != null and callerNo != ''">
+        caller_no,
+      </if>
+      <if test="calledNo != null and calledNo != ''">
+        called_no,
+      </if>
+      <if test="durationTime != null and durationTime != ''">
+        duration_time,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+      <if test="phoneStatus != null">
+        phone_status,
+      </if>
+      <if test="recordFile != null and recordFile != ''">
+        record_file,
+      </if>
+      <if test="reqid != null and reqid != ''">
+        reqid,
+      </if>
+      <if test="callCost != null">
+        call_cost,
+      </if>
+      <if test="fileUuid != null and fileUuid != ''">
+        file_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callerNo != null and callerNo != ''">
+        #{callerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="calledNo != null and calledNo != ''">
+        #{calledNo,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null and durationTime != ''">
+        #{durationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phoneStatus != null">
+        #{phoneStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordFile != null and recordFile != ''">
+        #{recordFile,jdbcType=VARCHAR},
+      </if>
+      <if test="reqid != null and reqid != ''">
+        #{reqid,jdbcType=VARCHAR},
+      </if>
+      <if test="callCost != null">
+        #{callCost,jdbcType=DECIMAL},
+      </if>
+      <if test="fileUuid != null and fileUuid != ''">
+        #{fileUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.extension.entity.CallRecord">
+    <!--@mbg.generated-->
+    update call_record
+    <set>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callerNo != null and callerNo != ''">
+        caller_no = #{callerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="calledNo != null and calledNo != ''">
+        called_no = #{calledNo,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null and durationTime != ''">
+        duration_time = #{durationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phoneStatus != null">
+        phone_status = #{phoneStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordFile != null and recordFile != ''">
+        record_file = #{recordFile,jdbcType=VARCHAR},
+      </if>
+      <if test="reqid != null and reqid != ''">
+        reqid = #{reqid,jdbcType=VARCHAR},
+      </if>
+      <if test="callCost != null">
+        call_cost = #{callCost,jdbcType=DECIMAL},
+      </if>
+      <if test="fileUuid != null and fileUuid != ''">
+        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where call_record_id = #{callRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.extension.entity.CallRecord">
+    <!--@mbg.generated-->
+    update call_record
+    set start_time = #{startTime,jdbcType=TIMESTAMP},
+      caller_no = #{callerNo,jdbcType=VARCHAR},
+      called_no = #{calledNo,jdbcType=VARCHAR},
+      duration_time = #{durationTime,jdbcType=VARCHAR},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      phone_status = #{phoneStatus,jdbcType=INTEGER},
+      record_file = #{recordFile,jdbcType=VARCHAR},
+      reqid = #{reqid,jdbcType=VARCHAR},
+      call_cost = #{callCost,jdbcType=DECIMAL},
+      file_uuid = #{fileUuid,jdbcType=VARCHAR}
+    where call_record_id = #{callRecordId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update call_record
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="start_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.startTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="caller_no = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.callerNo,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="called_no = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.calledNo,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="duration_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.durationTime,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="record_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.recordStatus,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="phone_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.phoneStatus,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="record_file = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.recordFile,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="reqid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.reqid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="call_cost = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.callCost,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="file_uuid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.fileUuid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where call_record_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.callRecordId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into call_record
+    (start_time, caller_no, called_no, duration_time, record_status, phone_status, record_file, 
+      reqid, call_cost, file_uuid)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.startTime,jdbcType=TIMESTAMP}, #{item.callerNo,jdbcType=VARCHAR}, #{item.calledNo,jdbcType=VARCHAR}, 
+        #{item.durationTime,jdbcType=VARCHAR}, #{item.recordStatus,jdbcType=INTEGER}, #{item.phoneStatus,jdbcType=INTEGER}, 
+        #{item.recordFile,jdbcType=VARCHAR}, #{item.reqid,jdbcType=VARCHAR}, #{item.callCost,jdbcType=DECIMAL}, 
+        #{item.fileUuid,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into call_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callRecordId != null">
+        call_record_id,
+      </if>
+      start_time,
+      caller_no,
+      called_no,
+      duration_time,
+      record_status,
+      phone_status,
+      record_file,
+      reqid,
+      call_cost,
+      file_uuid,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callRecordId != null">
+        #{callRecordId,jdbcType=INTEGER},
+      </if>
+      #{startTime,jdbcType=TIMESTAMP},
+      #{callerNo,jdbcType=VARCHAR},
+      #{calledNo,jdbcType=VARCHAR},
+      #{durationTime,jdbcType=VARCHAR},
+      #{recordStatus,jdbcType=INTEGER},
+      #{phoneStatus,jdbcType=INTEGER},
+      #{recordFile,jdbcType=VARCHAR},
+      #{reqid,jdbcType=VARCHAR},
+      #{callCost,jdbcType=DECIMAL},
+      #{fileUuid,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="callRecordId != null">
+        call_record_id = #{callRecordId,jdbcType=INTEGER},
+      </if>
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      caller_no = #{callerNo,jdbcType=VARCHAR},
+      called_no = #{calledNo,jdbcType=VARCHAR},
+      duration_time = #{durationTime,jdbcType=VARCHAR},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      phone_status = #{phoneStatus,jdbcType=INTEGER},
+      record_file = #{recordFile,jdbcType=VARCHAR},
+      reqid = #{reqid,jdbcType=VARCHAR},
+      call_cost = #{callCost,jdbcType=DECIMAL},
+      file_uuid = #{fileUuid,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into call_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callRecordId != null">
+        call_record_id,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="callerNo != null">
+        caller_no,
+      </if>
+      <if test="calledNo != null">
+        called_no,
+      </if>
+      <if test="durationTime != null">
+        duration_time,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+      <if test="phoneStatus != null">
+        phone_status,
+      </if>
+      <if test="recordFile != null">
+        record_file,
+      </if>
+      <if test="reqid != null">
+        reqid,
+      </if>
+      <if test="callCost != null">
+        call_cost,
+      </if>
+      <if test="fileUuid != null">
+        file_uuid,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="callRecordId != null">
+        #{callRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callerNo != null">
+        #{callerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="calledNo != null">
+        #{calledNo,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null">
+        #{durationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phoneStatus != null">
+        #{phoneStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordFile != null">
+        #{recordFile,jdbcType=VARCHAR},
+      </if>
+      <if test="reqid != null">
+        #{reqid,jdbcType=VARCHAR},
+      </if>
+      <if test="callCost != null">
+        #{callCost,jdbcType=DECIMAL},
+      </if>
+      <if test="fileUuid != null">
+        #{fileUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="callRecordId != null">
+        call_record_id = #{callRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callerNo != null">
+        caller_no = #{callerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="calledNo != null">
+        called_no = #{calledNo,jdbcType=VARCHAR},
+      </if>
+      <if test="durationTime != null">
+        duration_time = #{durationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phoneStatus != null">
+        phone_status = #{phoneStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recordFile != null">
+        record_file = #{recordFile,jdbcType=VARCHAR},
+      </if>
+      <if test="reqid != null">
+        reqid = #{reqid,jdbcType=VARCHAR},
+      </if>
+      <if test="callCost != null">
+        call_cost = #{callCost,jdbcType=DECIMAL},
+      </if>
+      <if test="fileUuid != null">
+        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-16-->
+  <select id="inquireCallRecordPageList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from call_record
+        where 1=1
+        <if test="minStartTime != null and maxStartTime != null">
+            and start_time <![CDATA[>]]> #{minStartTime,jdbcType=TIMESTAMP} and start_time <![CDATA[<]]> #{maxStartTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="callerNo != null and callerNo != ''">
+            and caller_no=#{callerNo,jdbcType=VARCHAR}
+        </if>
+        <if test="calledNo != null and calledNo != ''">
+            and called_no=#{calledNo,jdbcType=VARCHAR}
+        </if>
+        <if test="recordStatus != null">
+            and record_status=#{recordStatus,jdbcType=INTEGER}
+        </if>
+        <if test="phoneStatus != null">
+            and phone_status=#{phoneStatus,jdbcType=INTEGER}
+        </if>
+        <choose>
+          <when test="hasRecord == 1">
+            and record_file is not null and record_file != ''
+          </when>
+          <otherwise>
+            and (record_file is null or record_file = '')
+          </otherwise>
+        </choose>
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-18-->
+  <select id="findFileUuidByReqidIn" resultType="java.lang.String">
+        select file_uuid
+        from call_record
+        where reqid in
+        <foreach close=")" collection="reqidCollection" index="index" item="item" open="(" separator=",">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-23-->
+  <select id="findReqidByStartTimeBetween" resultType="java.lang.String">
+    select reqid
+    from call_record
+    where start_time <![CDATA[>]]> #{minStartTime,jdbcType=TIMESTAMP}  and start_time <![CDATA[<]]> #{maxStartTime,jdbcType=TIMESTAMP}
+  </select>
+</mapper>

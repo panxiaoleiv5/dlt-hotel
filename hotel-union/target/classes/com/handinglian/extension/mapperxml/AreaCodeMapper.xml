@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.extension.mapper.AreaCodeMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.extension.entity.AreaCode">
+    <!--@mbg.generated-->
+    <id column="area_code_id" jdbcType="INTEGER" property="areaCodeId" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    area_code_id, city_name, area_code, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from area_code
+    where area_code_id = #{areaCodeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from area_code
+    where area_code_id = #{areaCodeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="area_code_id" keyProperty="areaCodeId" parameterType="com.handinglian.extension.entity.AreaCode" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into area_code (city_name, area_code, create_time
+      )
+    values (#{cityName,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="area_code_id" keyProperty="areaCodeId" parameterType="com.handinglian.extension.entity.AreaCode" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into area_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cityName != null and cityName != ''">
+        city_name,
+      </if>
+      <if test="areaCode != null and areaCode != ''">
+        area_code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cityName != null and cityName != ''">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null and areaCode != ''">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.extension.entity.AreaCode">
+    <!--@mbg.generated-->
+    update area_code
+    <set>
+      <if test="cityName != null and cityName != ''">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null and areaCode != ''">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where area_code_id = #{areaCodeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.extension.entity.AreaCode">
+    <!--@mbg.generated-->
+    update area_code
+    set city_name = #{cityName,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where area_code_id = #{areaCodeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update area_code
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="city_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when area_code_id = #{item.areaCodeId,jdbcType=INTEGER} then #{item.cityName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="area_code = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when area_code_id = #{item.areaCodeId,jdbcType=INTEGER} then #{item.areaCode,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when area_code_id = #{item.areaCodeId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where area_code_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.areaCodeId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="area_code_id" keyProperty="areaCodeId" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into area_code
+    (city_name, area_code, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.cityName,jdbcType=VARCHAR}, #{item.areaCode,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="area_code_id" keyProperty="areaCodeId" parameterType="com.handinglian.extension.entity.AreaCode" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into area_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaCodeId != null">
+        area_code_id,
+      </if>
+      city_name,
+      area_code,
+      create_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaCodeId != null">
+        #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      #{cityName,jdbcType=VARCHAR},
+      #{areaCode,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="areaCodeId != null">
+        area_code_id = #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      city_name = #{cityName,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="area_code_id" keyProperty="areaCodeId" parameterType="com.handinglian.extension.entity.AreaCode" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into area_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaCodeId != null">
+        area_code_id,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaCodeId != null">
+        #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="areaCodeId != null">
+        area_code_id = #{areaCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-24-->
+  <select id="findAreaCode" resultType="java.lang.String">
+    select area_code
+    from area_code
+  </select>
+</mapper>
