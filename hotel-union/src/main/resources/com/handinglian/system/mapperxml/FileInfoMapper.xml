@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.handinglian.system.mapper.FileInfoMapper">
+  <resultMap id="BaseResultMap" type="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    <id column="file_uuid" jdbcType="VARCHAR" property="fileUuid" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_size" jdbcType="VARCHAR" property="fileSize" />
+    <result column="relative_path" jdbcType="VARCHAR" property="relativePath" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    file_uuid, file_name, file_size, relative_path, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from file_info
+    where file_uuid = #{fileUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--@mbg.generated-->
+    delete from file_info
+    where file_uuid = #{fileUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    insert into file_info (file_uuid, file_name, file_size, 
+      relative_path, create_time)
+    values (#{fileUuid,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileSize,jdbcType=VARCHAR}, 
+      #{relativePath,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    insert into file_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileUuid != null and fileUuid != ''">
+        file_uuid,
+      </if>
+      <if test="fileName != null and fileName != ''">
+        file_name,
+      </if>
+      <if test="fileSize != null and fileSize != ''">
+        file_size,
+      </if>
+      <if test="relativePath != null and relativePath != ''">
+        relative_path,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileUuid != null and fileUuid != ''">
+        #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null and fileName != ''">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null and fileSize != ''">
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null and relativePath != ''">
+        #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    update file_info
+    <set>
+      <if test="fileName != null and fileName != ''">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null and fileSize != ''">
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null and relativePath != ''">
+        relative_path = #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where file_uuid = #{fileUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    update file_info
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR},
+      relative_path = #{relativePath,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where file_uuid = #{fileUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update file_info
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="file_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when file_uuid = #{item.fileUuid,jdbcType=VARCHAR} then #{item.fileName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="file_size = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when file_uuid = #{item.fileUuid,jdbcType=VARCHAR} then #{item.fileSize,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="relative_path = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when file_uuid = #{item.fileUuid,jdbcType=VARCHAR} then #{item.relativePath,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when file_uuid = #{item.fileUuid,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where file_uuid in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.fileUuid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into file_info
+    (file_uuid, file_name, file_size, relative_path, create_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.fileUuid,jdbcType=VARCHAR}, #{item.fileName,jdbcType=VARCHAR}, #{item.fileSize,jdbcType=VARCHAR}, 
+        #{item.relativePath,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    insert into file_info
+    (file_uuid, file_name, file_size, relative_path, create_time)
+    values
+    (#{fileUuid,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileSize,jdbcType=VARCHAR}, 
+      #{relativePath,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    on duplicate key update 
+    file_uuid = #{fileUuid,jdbcType=VARCHAR}, 
+    file_name = #{fileName,jdbcType=VARCHAR}, 
+    file_size = #{fileSize,jdbcType=VARCHAR}, 
+    relative_path = #{relativePath,jdbcType=VARCHAR}, 
+    create_time = #{createTime,jdbcType=TIMESTAMP}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.handinglian.system.entity.FileInfo">
+    <!--@mbg.generated-->
+    insert into file_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileUuid != null">
+        file_uuid,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+      <if test="relativePath != null">
+        relative_path,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileUuid != null">
+        #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null">
+        #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="fileUuid != null">
+        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="relativePath != null">
+        relative_path = #{relativePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+<!--auto generated by MybatisCodeHelper on 2019-07-18-->
+  <select id="findByFileUuidIn" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from file_info
+    where file_uuid in
+    <foreach item="item" index="index" collection="fileUuidCollection"
+             open="(" separator="," close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+  </select>
+</mapper>
