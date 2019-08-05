@@ -49,12 +49,13 @@ public class CentralHostServiceImpl implements CentralHostService {
 
     @Override
     @Transactional
-    public int createCentralHost(String hostAddress, String macIp) throws IOException, DocumentException {
+    public int createCentralHost(String hostAddress, String macIp, String hostName) throws IOException, DocumentException {
         //请求绑定中控主机
         KkCreateCentralHostJsonDto kkCreateCentralHostJsonDto = kongkeApiService.bindingCentralHost(macIp);
 
         Date now = new Date();
         CentralHost centralHost = new CentralHost();
+        centralHost.setCentralHostName(hostName);
         centralHost.setHostAddress(hostAddress);
         centralHost.setMacIp(macIp);
         centralHost.setCreateTime(now);

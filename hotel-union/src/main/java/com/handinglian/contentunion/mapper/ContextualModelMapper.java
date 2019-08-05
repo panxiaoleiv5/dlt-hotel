@@ -32,5 +32,6 @@ public interface ContextualModelMapper {
 
     int deleteByContextualModelIdIn(@Param("contextualModelIdCollection")Collection<Integer> contextualModelIdCollection);
 
+    String findOneSubDeviceNameByContextualModelId(@Param("contextualModelId")Integer contextualModelId);
 
 }

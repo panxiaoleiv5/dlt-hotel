@@ -21,7 +21,5 @@ public interface CentralHostMapper {
 
     List<CentralHost> find();
 
-    CentralHost findOneByMacIp(@Param("macIp")String macIp);
-
-
+    CentralHost findOneByMacIp(@Param("macIp") String macIp);
 }

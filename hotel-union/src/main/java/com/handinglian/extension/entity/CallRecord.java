@@ -58,9 +58,9 @@ public class CallRecord implements Serializable {
     private BigDecimal callCost;
 
     /**
-     * 文件主键id
+     * 创建时间
      */
-    private String fileUuid;
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 }

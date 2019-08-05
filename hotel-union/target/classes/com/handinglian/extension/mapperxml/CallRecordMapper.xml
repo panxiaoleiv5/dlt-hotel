@@ -13,12 +13,12 @@
     <result column="record_file" jdbcType="VARCHAR" property="recordFile" />
     <result column="reqid" jdbcType="VARCHAR" property="reqid" />
     <result column="call_cost" jdbcType="DECIMAL" property="callCost" />
-    <result column="file_uuid" jdbcType="VARCHAR" property="fileUuid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     call_record_id, start_time, caller_no, called_no, duration_time, record_status, phone_status, 
-    record_file, reqid, call_cost, file_uuid
+    record_file, reqid, call_cost, create_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -37,11 +37,11 @@
     insert into call_record (start_time, caller_no, called_no, 
       duration_time, record_status, phone_status, 
       record_file, reqid, call_cost, 
-      file_uuid)
+      create_time)
     values (#{startTime,jdbcType=TIMESTAMP}, #{callerNo,jdbcType=VARCHAR}, #{calledNo,jdbcType=VARCHAR}, 
       #{durationTime,jdbcType=VARCHAR}, #{recordStatus,jdbcType=INTEGER}, #{phoneStatus,jdbcType=INTEGER}, 
       #{recordFile,jdbcType=VARCHAR}, #{reqid,jdbcType=VARCHAR}, #{callCost,jdbcType=DECIMAL}, 
-      #{fileUuid,jdbcType=VARCHAR})
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -74,8 +74,8 @@
       <if test="callCost != null">
         call_cost,
       </if>
-      <if test="fileUuid != null and fileUuid != ''">
-        file_uuid,
+      <if test="createTime != null">
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -106,8 +106,8 @@
       <if test="callCost != null">
         #{callCost,jdbcType=DECIMAL},
       </if>
-      <if test="fileUuid != null and fileUuid != ''">
-        #{fileUuid,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -142,8 +142,8 @@
       <if test="callCost != null">
         call_cost = #{callCost,jdbcType=DECIMAL},
       </if>
-      <if test="fileUuid != null and fileUuid != ''">
-        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where call_record_id = #{callRecordId,jdbcType=INTEGER}
@@ -160,7 +160,7 @@
       record_file = #{recordFile,jdbcType=VARCHAR},
       reqid = #{reqid,jdbcType=VARCHAR},
       call_cost = #{callCost,jdbcType=DECIMAL},
-      file_uuid = #{fileUuid,jdbcType=VARCHAR}
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where call_record_id = #{callRecordId,jdbcType=INTEGER}
   </update>
   <update id="updateBatch" parameterType="java.util.List">
@@ -212,9 +212,9 @@
           when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.callCost,jdbcType=DECIMAL}
         </foreach>
       </trim>
-      <trim prefix="file_uuid = case" suffix="end,">
+      <trim prefix="create_time = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.fileUuid,jdbcType=VARCHAR}
+          when call_record_id = #{item.callRecordId,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
         </foreach>
       </trim>
     </trim>
@@ -227,13 +227,13 @@
     <!--@mbg.generated-->
     insert into call_record
     (start_time, caller_no, called_no, duration_time, record_status, phone_status, record_file, 
-      reqid, call_cost, file_uuid)
+      reqid, call_cost, create_time)
     values
     <foreach collection="list" item="item" separator=",">
       (#{item.startTime,jdbcType=TIMESTAMP}, #{item.callerNo,jdbcType=VARCHAR}, #{item.calledNo,jdbcType=VARCHAR}, 
         #{item.durationTime,jdbcType=VARCHAR}, #{item.recordStatus,jdbcType=INTEGER}, #{item.phoneStatus,jdbcType=INTEGER}, 
         #{item.recordFile,jdbcType=VARCHAR}, #{item.reqid,jdbcType=VARCHAR}, #{item.callCost,jdbcType=DECIMAL}, 
-        #{item.fileUuid,jdbcType=VARCHAR})
+        #{item.createTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
   <insert id="insertOrUpdate" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
@@ -252,7 +252,7 @@
       record_file,
       reqid,
       call_cost,
-      file_uuid,
+      create_time,
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -268,7 +268,7 @@
       #{recordFile,jdbcType=VARCHAR},
       #{reqid,jdbcType=VARCHAR},
       #{callCost,jdbcType=DECIMAL},
-      #{fileUuid,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -284,7 +284,7 @@
       record_file = #{recordFile,jdbcType=VARCHAR},
       reqid = #{reqid,jdbcType=VARCHAR},
       call_cost = #{callCost,jdbcType=DECIMAL},
-      file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
     </trim>
   </insert>
   <insert id="insertOrUpdateSelective" keyColumn="call_record_id" keyProperty="callRecordId" parameterType="com.handinglian.extension.entity.CallRecord" useGeneratedKeys="true">
@@ -321,8 +321,8 @@
       <if test="callCost != null">
         call_cost,
       </if>
-      <if test="fileUuid != null">
-        file_uuid,
+      <if test="createTime != null">
+        create_time,
       </if>
     </trim>
     values
@@ -357,8 +357,8 @@
       <if test="callCost != null">
         #{callCost,jdbcType=DECIMAL},
       </if>
-      <if test="fileUuid != null">
-        #{fileUuid,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
     on duplicate key update 
@@ -393,8 +393,8 @@
       <if test="callCost != null">
         call_cost = #{callCost,jdbcType=DECIMAL},
       </if>
-      <if test="fileUuid != null">
-        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>

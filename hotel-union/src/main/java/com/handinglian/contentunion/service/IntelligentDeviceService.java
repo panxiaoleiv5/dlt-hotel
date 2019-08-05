@@ -3,8 +3,10 @@ package com.handinglian.contentunion.service;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
 import com.handinglian.contentunion.dto.IntelligentDeviceDto;
+import com.handinglian.contentunion.dto.IntelligentDeviceReturnDto;
 import com.handinglian.contentunion.entity.IntelligentDevice;
 import com.handinglian.contentunion.entity.IntelligentSubDevice;
+import com.handinglian.contentunion.entity.ProductList;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
@@ -47,7 +49,7 @@ public interface IntelligentDeviceService {
     * @return com.github.pagehelper.PageInfo<com.handinglian.contentunion.entity.IntelligentDevice>
     * @date 2019/6/5 15:59
     */
-    PageInfo<IntelligentDevice> inquireIntelligentDevicePageList(Integer pageIndex, Integer pageSize);
+    PageInfo<IntelligentDeviceReturnDto> inquireIntelligentDevicePageList(Integer pageIndex, Integer pageSize);
 
     /**
     * 获取智能设备明细
@@ -57,4 +59,9 @@ public interface IntelligentDeviceService {
     * @date 2019/6/5 16:00
     */
     IntelligentDeviceDetailDto loadIntelligentDeviceDetail(Integer intelligentDeviceId);
+
+    /**
+     * 查询产品设备列表
+     */
+    List<ProductList> inquireProductList();
 }

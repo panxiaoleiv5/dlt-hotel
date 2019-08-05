@@ -44,6 +44,11 @@ public class IntelligentDeviceDetailDto implements Serializable {
     private Integer centralHostId;
 
     /**
+     * 是否红外线设备 1是 0不是
+     */
+    private Integer isInfrared;
+
+    /**
      * 智能子设备
      */
     private List<IntelligentSubDevice> intelligentSubDeviceList;

@@ -8,6 +8,7 @@ import com.handinglian.common.exception.BizException;
 import com.handinglian.common.utils.*;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
 import com.handinglian.contentunion.dto.IntelligentDeviceDto;
+import com.handinglian.contentunion.dto.IntelligentDeviceReturnDto;
 import com.handinglian.contentunion.entity.*;
 import com.handinglian.contentunion.mapper.*;
 import com.handinglian.contentunion.service.IntelligentDeviceService;
@@ -190,10 +191,11 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
     }
 
     @Override
-    public PageInfo<IntelligentDevice> inquireIntelligentDevicePageList(Integer pageIndex, Integer pageSize) {
+    public PageInfo<IntelligentDeviceReturnDto> inquireIntelligentDevicePageList(Integer pageIndex, Integer pageSize) {
         PageHelper.startPage(pageIndex, pageSize);
-        List<IntelligentDevice> intelligentDevices = intelligentDeviceMapper.find();
-        return new PageInfo<>(intelligentDevices);
+        List<IntelligentDeviceReturnDto> intelligentDeviceReturnDtos = intelligentDeviceMapper.inquireIntelligentExtensionPageList();
+
+        return new PageInfo<>(intelligentDeviceReturnDtos);
     }
 
     @Override
@@ -205,5 +207,10 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
         intelligentDeviceDetailDto.setIntelligentSubDeviceList(intelligentSubDeviceList);
 
         return intelligentDeviceDetailDto;
+    }
+
+    @Override
+    public List<ProductList> inquireProductList() {
+        return intelligentDeviceMapper.inquireProductList();
     }
 }

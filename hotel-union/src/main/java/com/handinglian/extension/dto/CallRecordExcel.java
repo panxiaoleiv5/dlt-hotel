@@ -3,6 +3,8 @@ package com.handinglian.extension.dto;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 public class CallRecordExcel {
     @Excel(name = "时间", width = 20)
@@ -22,4 +24,5 @@ public class CallRecordExcel {
 
     @Excel(name = "状态")
     private String phoneStatus = null;
+
 }

@@ -19,4 +19,9 @@ public class CentralHostDto {
      */
     private String macIp;
 
+    /**
+     * 中控主机名称
+     */
+    private String centralHostName;
+
 }

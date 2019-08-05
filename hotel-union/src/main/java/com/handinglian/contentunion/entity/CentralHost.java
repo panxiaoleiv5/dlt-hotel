@@ -22,6 +22,11 @@ public class CentralHost implements Serializable {
     private String localIp;
 
     /**
+     * 中控主机名称
+     */
+    private String centralHostName;
+
+    /**
      * 识别码
      */
     private String macIp;

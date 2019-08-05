@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "name": "schedule.pool",
+      "type": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "schedule.pool.core-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "schedule.pool.keep-alive-seconds",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "schedule.pool.max-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "schedule.pool.queue-capacity",
+      "type": "java.lang.Integer",
+      "sourceType": "com.handinglian.common.config.TaskThreadPoolConfig",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}

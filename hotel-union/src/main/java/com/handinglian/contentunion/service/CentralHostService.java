@@ -7,7 +7,7 @@ import org.dom4j.DocumentException;
 import java.io.IOException;
 
 public interface CentralHostService {
-    int createCentralHost(String hostAddress, String macIp) throws IOException, DocumentException;
+    int createCentralHost(String hostAddress, String macIp, String hostName) throws IOException, DocumentException;
 
     /**
     * 激活中控主机，获取中控主机的基本信息并插入数据库

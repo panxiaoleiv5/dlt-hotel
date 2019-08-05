@@ -89,7 +89,6 @@ public class ExtensionController {
      */
     @GetMapping("/loadExtension")
     public ResultData loadExtension(Integer extensionId) throws IOException {
-        yunyiApiService.getExtension("801");
         Extension extension = extensionService.loadExtension(extensionId);
         return new ResultData(Constants.SUCCESS, Constants.SUCCESS_CONTENT, extension);
     }

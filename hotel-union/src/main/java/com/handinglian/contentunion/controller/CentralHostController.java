@@ -41,7 +41,7 @@ public class CentralHostController {
         if (centralHost != null){
             return ResultDataFactory.generateExistInDeleteResultData();
         } else {
-            int amount = centralHostService.createCentralHost(centralHostDto.getHostAddress(), centralHostDto.getMacIp());
+            int amount = centralHostService.createCentralHost(centralHostDto.getHostAddress(), centralHostDto.getMacIp(), centralHostDto.getCentralHostName());
             return ResultDataFactory.generateResultData(amount);
         }
     }
@@ -81,6 +81,7 @@ public class CentralHostController {
         CentralHost centralHost = new CentralHost();
         centralHost.setCentralHostId(centralHostDto.getCentralHostId());
         centralHost.setHostAddress(centralHostDto.getHostAddress());
+        centralHost.setCentralHostName(centralHostDto.getCentralHostName());
         centralHost.setUpdateTime(new Date());
 
         int amount = centralHostService.updateCentralHost(centralHost);

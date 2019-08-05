@@ -2,7 +2,10 @@ package com.handinglian.contentunion.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.handinglian.common.utils.FastJsonUtil;
 import com.handinglian.common.utils.GeneralUtil;
+import com.handinglian.common.utils.StringUtil;
+import com.handinglian.contentunion.dto.ContextualModelDetailDto;
 import com.handinglian.contentunion.entity.ContextualModel;
 import com.handinglian.contentunion.mapper.ContextualModelMapper;
 import com.handinglian.contentunion.mapper.IntelligentSubDeviceMapper;
@@ -11,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +65,8 @@ import java.util.List;
     }
 
     @Override
-    public int addIntelligentArticle(String kkDeviceNames, Integer contextualModelId) {
+    @Transactional
+    public int addOrDeleteIntelligentArticle(String kkDeviceNames, Integer contextualModelId) {
         ContextualModel contextualModel = contextualModelMapper.selectByPrimaryKey(contextualModelId);
         contextualModel.setContextualModelId(contextualModelId);
         contextualModel.setSubDeviceName(kkDeviceNames);
@@ -68,6 +74,7 @@ import java.util.List;
     }
 
     @Override
+    @Transactional
     public int deleteIntelligentArticle(String kkDeviceNameStr, Integer contextualModelId) {
         ContextualModel contextualModel = contextualModelMapper.selectByPrimaryKey(contextualModelId);
         String subDEviceNameStr = contextualModel.getSubDeviceName();
@@ -90,5 +97,18 @@ import java.util.List;
         pageSize = pageSize == null?10:pageSize;
         PageHelper.startPage(page, pageSize);
         return new PageInfo<>(intelligentSubDeviceMapper.inquireSubDeviceNameGroupBySubDeviceName());
+    }
+
+    @Override
+    public List<String> inquireSelectedIntelligentArticleList(Integer contextualModelId) {
+        String deviceNameStr = contextualModelMapper.findOneSubDeviceNameByContextualModelId(contextualModelId);
+        String[] deviceNames = deviceNameStr == null?new String[0]:deviceNameStr.split(",");
+        return new ArrayList<String>(Arrays.asList(deviceNames));
+    }
+
+    @Override
+    public ContextualModelDetailDto loadContextualModelDetail(Integer contextualModelId) {
+        ContextualModel contextualModel = contextualModelMapper.selectByPrimaryKey(contextualModelId);
+        return FastJsonUtil.ObjectToObject(contextualModel, ContextualModelDetailDto.class);
     }
 }

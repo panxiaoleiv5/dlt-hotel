@@ -22,12 +22,12 @@ public class SetMealCreateParam {
     private Integer isDefault;
 
     /**
-     * 分机号
+     * 分机号(List数组)
      */
     private List<String> extensionNos;
 
     /**
-     * 通话类型详情
+     * 通话类型详情(List数组)
      */
     private List<SetMealDetailCreateParam> setMealDetailCreateParams;
 }

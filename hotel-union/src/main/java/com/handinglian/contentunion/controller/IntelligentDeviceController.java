@@ -6,8 +6,10 @@ import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
 import com.handinglian.contentunion.dto.IntelligentDeviceDetailDto;
 import com.handinglian.contentunion.dto.IntelligentDeviceDto;
+import com.handinglian.contentunion.dto.IntelligentDeviceReturnDto;
 import com.handinglian.contentunion.dto.IntelligentSubDeviceDto;
 import com.handinglian.contentunion.entity.IntelligentDevice;
+import com.handinglian.contentunion.entity.ProductList;
 import com.handinglian.contentunion.service.IntelligentDeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.DocumentException;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Api("智能设备")
 @Slf4j
@@ -89,10 +92,19 @@ public class IntelligentDeviceController {
      * 获取智能设备分页列表
      */
     @GetMapping("/inquireIntelligentDevicePageList")
-    public ResultData<IntelligentDevice> inquireIntelligentDevicePageList(Integer pageIndex, Integer pageSize){
+    public ResultData<IntelligentDeviceReturnDto> inquireIntelligentDevicePageList(Integer pageIndex, Integer pageSize){
         pageIndex = pageIndex == null?1:pageIndex;
         pageSize = pageSize == null?10:pageSize;
         PageInfo pageInfo = intelligentDeviceService.inquireIntelligentDevicePageList(pageIndex, pageSize);
         return ResultDataFactory.generateSuccessResultData(pageInfo);
+    }
+
+    /**
+     * 获取产品设备列表
+     */
+    @GetMapping("/inquireProductList")
+    public ResultData<ProductList> inquireProductList(){
+        List<ProductList> productLists = intelligentDeviceService.inquireProductList();
+        return ResultDataFactory.generateSuccessResultData(productLists);
     }
 }

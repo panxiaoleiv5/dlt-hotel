@@ -1,5 +1,6 @@
 package com.handinglian.extension.controller;
 
+import com.apidoc.annotation.Api;
 import com.github.pagehelper.PageInfo;
 import com.handinglian.common.dto.ResultData;
 import com.handinglian.common.factory.ResultDataFactory;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+@Api("通话记录")
 @RestController
 @RequestMapping("/callrecord")
 public class CallRecordController {
@@ -38,10 +42,13 @@ public class CallRecordController {
         return ResultDataFactory.generateSuccessResultData(recordDtoPageInfo);
     }
 
-    @PostMapping("/downloadRecording")
-    public ResultData downloadRecording(@RequestBody List<String> reqids) {
-
-        List<FileInfo> fileInfoList = callRecordService.inquireCallRecordingList(reqids);
+    /**
+     * 下载录音
+     */
+    @GetMapping("/downloadRecording")
+    public ResultData downloadRecording(String reqids) {
+        List<String> reqidList = new ArrayList<String>(Arrays.asList(reqids.split("，")));
+        List<FileInfo> fileInfoList = callRecordService.inquireCallRecordingList(reqidList);
         List<File> fileList = new LinkedList<>();//暂存文件列表
         String path = fileLocation; //得到zip文件的生成地址
         File fi= new File(path);//构造zip文件存放的目录
@@ -70,9 +77,13 @@ public class CallRecordController {
         return ResultDataFactory.generateSuccessResultData(downloadUrl+fileName);
     }
 
+    /**
+     * 推送通话记录
+     */
     @PostMapping("/pushCdrInfo")
     public String pushCdrInfo(@RequestBody PushCallRecordParam pushCallRecordParam) {
         int amount = callRecordService.createCallRecord(pushCallRecordParam.getCdr());
         return amount == 0?"failure":"success";
     }
+
 }

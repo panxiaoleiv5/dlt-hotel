@@ -68,17 +68,7 @@ public class CallRecordServiceImpl implements CallRecordService {
     public int createCallRecord(List<CallRecordCreateParam> callRecordCreateParams) {
         List<CallRecord> callRecordList = new ArrayList<>();
         callRecordCreateParams.forEach(callRecordCreateParam -> {
-            CallRecord callRecord = new CallRecord();
-            callRecord.setStartTime(DateUtil.from(callRecordCreateParam.getStarTime()));
-            callRecord.setCallerNo(callRecordCreateParam.getCallerNO());
-            callRecord.setCalledNo(callRecordCreateParam.getCalledNO());
-            callRecord.setDurationTime(callRecordCreateParam.getDurationTime().toString());
-            callRecord.setRecordStatus(callRecordCreateParam.getRecordStatus());
-            Integer phoneStatus = callRecordCreateParam.getDurationTime() == 0?1:2;
-            callRecord.setPhoneStatus(phoneStatus);
-            callRecord.setRecordFile(callRecordCreateParam.getRecordFile());
-            callRecord.setReqid(callRecordCreateParam.getReqid());
-            callRecord.setCallCost(new BigDecimal(0));
+            CallRecord callRecord = convertCallRecordCreateParamToCallRecord(callRecordCreateParam);
 
             Extension extension = extensionService.loadExtensionByExtensionNo(callRecord.getCallerNo());
             if (extension != null){
@@ -87,8 +77,12 @@ public class CallRecordServiceImpl implements CallRecordService {
                 //确定该通话属于哪个套餐
                 SetMealCallTypeEnum setMealCallTypeEnum = judgePhoneSetMealDetail(callRecord.getCallerNo(), phoneSetMeal.getAreaCodeId());
                 //计算通话费用
-                BigDecimal callCost = calculateCallCost(setMealCallTypeEnum, phoneSetMealDetailList, callRecordCreateParam.getDurationTime());
-                callRecord.setCallCost(callCost);
+                if (callRecordCreateParam.getRecordStatus() != 1){
+                    callRecord.setCallCost(new BigDecimal(0));
+                } else {
+                    BigDecimal callCost = calculateCallCost(setMealCallTypeEnum, phoneSetMealDetailList, callRecordCreateParam.getDurationTime());
+                    callRecord.setCallCost(callCost);
+                }
             }
 
             callRecordList.add(callRecord);
@@ -96,6 +90,23 @@ public class CallRecordServiceImpl implements CallRecordService {
 
         return callRecordMapper.batchInsert(callRecordList);
     }
+
+    private CallRecord convertCallRecordCreateParamToCallRecord(CallRecordCreateParam callRecordCreateParam) {
+        CallRecord callRecord = new CallRecord();
+        callRecord.setStartTime(DateUtil.from(callRecordCreateParam.getStarTime()));
+        callRecord.setCallerNo(callRecordCreateParam.getCallerNO());
+        callRecord.setCalledNo(callRecordCreateParam.getCalledNO());
+        callRecord.setDurationTime(callRecordCreateParam.getDurationTime().toString());
+        callRecord.setRecordStatus(callRecordCreateParam.getRecordStatus());
+        Integer phoneStatus = callRecordCreateParam.getDurationTime() == 0?1:2;
+        callRecord.setPhoneStatus(phoneStatus);
+        callRecord.setRecordFile(callRecordCreateParam.getRecordFile());
+        callRecord.setReqid(callRecordCreateParam.getReqid());
+        callRecord.setCallCost(new BigDecimal(0));
+        callRecord.setCreateTime(new Date());
+        return callRecord;
+    }
+
 
     private BigDecimal calculateCallCost(SetMealCallTypeEnum setMealCallTypeEnum, List<PhoneSetMealDetail> phoneSetMealDetailList, Integer durationTime){
         BigDecimal callCost = new BigDecimal(0);
