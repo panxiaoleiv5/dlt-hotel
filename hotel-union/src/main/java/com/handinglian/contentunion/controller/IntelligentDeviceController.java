@@ -48,7 +48,7 @@ public class IntelligentDeviceController {
      */
     @PutMapping("/recoverIntelligentDevice")
     public ResultData recoverIntelligentDevice(@RequestBody IntelligentDeviceDto intelligentDeviceDto) throws IOException, DocumentException {
-        int amount = intelligentDeviceService.recoverIntelligentDevice(intelligentDeviceDto.getCentralHostId());
+        int amount = intelligentDeviceService.recoverIntelligentDevice(intelligentDeviceDto.getMacIp());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -66,7 +66,7 @@ public class IntelligentDeviceController {
      */
     @PutMapping("/updateIntelligentDevice")
     public ResultData updateIntelligentDevice(@RequestBody IntelligentDeviceDto intelligentDeviceDto){
-        int amount = intelligentDeviceService.updateIntelligentDevice(intelligentDeviceDto.getCentralHostId(), intelligentDeviceDto.getDeviceAddress(), intelligentDeviceDto.getExtensionId(), intelligentDeviceDto.getCentralHostId());
+        int amount = intelligentDeviceService.updateIntelligentDevice(intelligentDeviceDto.getIntelligentDeviceId(), intelligentDeviceDto.getDeviceAddress(), intelligentDeviceDto.getExtensionId(), intelligentDeviceDto.getCentralHostId());
         return ResultDataFactory.generateResultData(amount);
     }
 
@@ -75,7 +75,7 @@ public class IntelligentDeviceController {
      */
     @PutMapping("/updateIntelligentSubDevice")
     public ResultData updateIntelligentSubDevice(@RequestBody IntelligentSubDeviceDto intelligentSubDeviceDto){
-        int amount = intelligentDeviceService.updateIntelligentSubDevice(intelligentSubDeviceDto.getIntelligentDeviceId(), intelligentSubDeviceDto.getSubProductName(), intelligentSubDeviceDto.getPower());
+        int amount = intelligentDeviceService.updateIntelligentSubDevice(intelligentSubDeviceDto.getIntelligentSubDeviceId(), intelligentSubDeviceDto.getSubProductName(), intelligentSubDeviceDto.getPower());
         return ResultDataFactory.generateResultData(amount);
     }
 

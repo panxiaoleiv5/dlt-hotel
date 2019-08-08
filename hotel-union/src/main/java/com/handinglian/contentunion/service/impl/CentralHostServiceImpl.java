@@ -117,7 +117,7 @@ public class CentralHostServiceImpl implements CentralHostService {
     @Override
     @Transactional
     public int recoverCentralHost(String macIp) throws IOException, DocumentException {
-        CentralHost centralHost = centralHostMapper.findOneByMacIp(macIp);
+        CentralHost centralHost = centralHostMapper.findInvalidOneByMacIp(macIp);
 
         //请求绑定中控主机
         kongkeApiService.bindingCentralHost(centralHost.getMacIp());

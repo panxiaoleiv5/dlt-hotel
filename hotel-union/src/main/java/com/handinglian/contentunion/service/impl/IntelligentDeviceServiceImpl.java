@@ -49,9 +49,9 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
         intelligentDevice.setUpdateTime(new Date());
         intelligentDevice.setValid(1);
 
-        int amount = intelligentDeviceMapper.insertSelectiveWithPrimaryKey(intelligentDevice);
+        int amount = intelligentDeviceMapper.insertSelective(intelligentDevice);
 
-        String[] extensionIds = intelligentDeviceDto.getExtensionId().split(",");
+        String[] extensionIds = StringUtil.isBlank(intelligentDeviceDto.getExtensionId())?new String[]{}:intelligentDeviceDto.getExtensionId().split(",");
         Date now = new Date();
         for (String extensionid : extensionIds){
             IntelligentExtensionRelation intelligentExtensionRelation = new IntelligentExtensionRelation();
@@ -81,8 +81,8 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
     }
 
     @Override
-    public int recoverIntelligentDevice(Integer intelligentDeviceId) throws IOException, DocumentException {
-        IntelligentDevice intelligentDevice = intelligentDeviceMapper.selectByPrimaryKey(intelligentDeviceId);
+    public int recoverIntelligentDevice(String macIp) throws IOException, DocumentException {
+        IntelligentDevice intelligentDevice = intelligentDeviceMapper.findInvalidOneByMacIp(macIp);
         intelligentDevice.setValid(ValidEnum.VALID.getKey());
         intelligentDevice.setUpdateTime(new Date());
         int amount = intelligentDeviceMapper.updateByPrimaryKeySelective(intelligentDevice);
@@ -143,11 +143,11 @@ public class IntelligentDeviceServiceImpl implements IntelligentDeviceService {
     @Override
     public int updateIntelligentSubDevice(Integer intelligentSubDeviceId, String deviceName, Integer power) {
         IntelligentSubDevice intelligentSubDevice = new IntelligentSubDevice();
-        intelligentSubDevice.setIntelligentDeviceId(intelligentSubDeviceId);
+        intelligentSubDevice.setIntelligentSubDeviceId(intelligentSubDeviceId);
         intelligentSubDevice.setSubDeviceName(deviceName);
         intelligentSubDevice.setPower(power);
 
-        return intelligentSubDeviceMapper.updateByPrimaryKey(intelligentSubDevice);
+        return intelligentSubDeviceMapper.updateByPrimaryKeySelective(intelligentSubDevice);
     }
 
     @Override

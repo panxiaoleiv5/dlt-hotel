@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class IntelligentDeviceDto {
     /**
-     * mac ip
+     * 智能设备id
      */
     private Integer intelligentDeviceId;
 
@@ -38,7 +38,7 @@ public class IntelligentDeviceDto {
     private Integer centralHostId;
 
     /**
-     * 中控主机id
+     * 分机id
      */
     private String extensionId;
 

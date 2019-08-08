@@ -18,11 +18,11 @@ public interface IntelligentDeviceService {
     /**
     * 从删除列表中恢复数据
     * @author pxl
-    * @param intelligentDeviceId
+    * @param macIp
     * @return int
     * @date 2019/6/11 15:19
     */
-    int recoverIntelligentDevice(Integer intelligentDeviceId) throws IOException, DocumentException;
+    int recoverIntelligentDevice(String macIp) throws IOException, DocumentException;
 
     int updateIntelligentDevice(Integer intelligentDeviceId, String deviceAddress, String extensionId, Integer centralHostId);
 
