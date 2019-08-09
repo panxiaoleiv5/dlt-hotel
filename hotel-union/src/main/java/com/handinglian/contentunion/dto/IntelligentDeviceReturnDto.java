@@ -47,6 +47,11 @@ public class IntelligentDeviceReturnDto {
     private String extensionNo;
 
     /**
+     * 分机id
+     */
+    private Integer extensionId;
+
+    /**
      * 在线状态
      */
     private Integer onlineState;
